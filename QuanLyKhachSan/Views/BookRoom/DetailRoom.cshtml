@@ -1,0 +1,66 @@
+﻿@using QuanLyKhachSan.ViewModels;
+@model Hotel
+
+
+@{
+    ViewBag.Title = "BookRoom";
+}
+
+@using (Html.BeginForm("DetailRoom", "BookRoom", FormMethod.Get))
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Tên Khách Sạn</th>
+                <th scope="col">Số Sao</th>
+                <th scope="col">Số Nhà</th>
+                <th scope="col">Đường</th>
+                <th scope="col">Quận</th>
+                <th scope="col">Thành phố</th>
+                <th scope="col">Giá</th>
+                <th scope="col">Mô tả</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Model.TenKS</td>
+                <td>@Model.SoSao</td>
+                <td>@Model.SoNha</td>
+                <td>@Model.Duong</td>
+                <td>@Model.Quan</td>
+                <td>@Model.ThanhPho</td>
+                <td>@Model.GiaTB</td>
+                <td>@Model.MoTa</td>
+            </tr>
+        </tbody>
+    </table>
+    <hr />
+    <input hidden id="maLP" type="text" name="maLoaiPhong">
+    <input hidden id="msKS" type="text" name="maKS" value=@Model.MaKS>
+    <h3>Chọn loại phòng muốn đặt</h3>
+    <select id="mySelect" class="form-control">
+        @foreach (var item in ViewBag.listLoaiPhong)
+        {
+            <option value=@item.MaLoaiPhong>@item.TenLoaiPhong</option>
+        }
+    </select>
+    <hr />
+    <th style="width:200px; padding-left: 15px"><button type="submit" class="btn btn-success" onclick="myFunction()"><i class="fas fa-search-plus"></i> In Phòng</button></th>
+    <hr />
+
+    if (ViewBag.listPhong != null)
+    {
+        foreach(var item in ViewBag.listPhong)
+        {
+            <h5>@item.soPhong</h5>
+        }
+    }
+
+}
+
+<script>
+   function myFunction() {
+        var x = document.getElementById("mySelect").value;
+        document.getElementById("maLP").value = x;
+    }
+</script>

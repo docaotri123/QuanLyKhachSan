@@ -1,0 +1,90 @@
+﻿@using QuanLyKhachSan.Models;
+@model IEnumerable<TimKiemSaoVaThanhPho_Result>
+@{
+    ViewBag.Title = "GiaVaThanhPho";
+}
+
+<div class="row">
+    @using (Html.BeginForm("HangSaoVaThanhPho", "TimKiemKS", FormMethod.Get))
+    {
+        <table>
+            <tbody>
+                <tr>
+                    <th style="width:100px">Giá cần tìm</th>
+                    <th style="width:150px">
+                        <select id="mySelect_Sao" class="form-control">
+                            <option value="1" selected>5 Sao</option>
+                            <option value="2">4 Sao</option>
+                            <option value="3">3 Sao</option>
+                            <option value="4">2 Sao</option>
+                            <option value="5">1 Sao</option>
+                        </select>
+                    </th>
+                    <th style="width:150px;text-align:right;text-align:center">Tên thành phố</th>
+                    <th style="width:150px">
+                        <select id="mySelect" class="form-control">
+                            <option value="hcm" selected>HCM</option>
+                            <option value="hanoi">Hà Nội</option>
+                            <option value="Đà Nẵng">Đà Đẵng</option>
+                            <option value="Tây Ninh">Tây Ninh</option>
+                            <option value="Vũng Tàu">Vũng Tàu</option>
+                        </select>
+                    </th>
+
+                    <th style="width:200px; padding-left: 15px"><button type="submit" class="btn btn-success" onclick="myFunction()"><i class="fas fa-search-plus"></i> Tìm kiếm</button></th>
+                </tr>
+            </tbody>
+        </table>
+        <br />
+        <input hidden id="sao" type="text" name="sao">
+        <input hidden id="tp" type="text" name="tp">
+    }
+    <hr />
+
+    @if (Model != null && Model.Any())
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Tên Khách Sạn</th>
+                    <th scope="col">Số Sao</th>
+                    <th scope="col">Số Nhà</th>
+                    <th scope="col">Đường</th>
+                    <th scope="col">Quận</th>
+                    <th scope="col">Thành phố</th>
+                    <th scope="col">Giá</th>
+                    <th scope="col">Mô tả</th>
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                <tbody>
+                    <tr>
+                        <td>@item.TenKS</td>
+                        <td>@item.SoSao</td>
+                        <td>@item.SoNha</td>
+                        <td>@item.Duong</td>
+                        <td>@item.Quan</td>
+                        <td>@item.ThanhPho</td>
+                        <td>@item.GiaTB</td>
+                        <td>@item.MoTa</td>
+                    </tr>
+                </tbody>
+            }
+        </table>
+    }
+
+
+</div>
+
+<script>
+    function myFunction() {
+        var x1 = document.getElementById("mySelect_Sao").value;
+        var x = document.getElementById("mySelect").value;
+
+        document.getElementById("tp").value = x;
+        document.getElementById("sao").value = x1;
+
+    }
+</script>
+

@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "Detail-User";
+}
+
+@if (Session["loginSuccess"] != null)
+{
+    var u = Session["loginSuccess"] as QuanLyKhachSan.ViewModels.UserName;
+    <h2>Chúc mừng bạn đăng nhập thành công</h2>
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="width:200px">Mã Khách Hàng</th>
+                <th >Name Khách Hàng</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th >@u.maKH</th>
+                <td>@u.nameKH</td>
+            </tr>
+           
+        </tbody>
+    </table>
+}

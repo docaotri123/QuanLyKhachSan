@@ -1,0 +1,212 @@
+﻿
+@{
+    ViewBag.Title = "Signup";
+}
+
+@model QuanLyKhachSan.Models.KHACHHANG
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <h2 style="color:red">@ViewBag.ThongBao</h2>
+            <h2>Register New User</h2>
+            <hr>
+        </div>
+    </div>
+    @*row ho ten*@
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label for="name">Name</label>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+                    <input type="text" name="HoTen" class="form-control" id="hoten"
+                           placeholder="John Doe" required autofocus>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-3">
+            <!-- Put name validation error messages here -->
+            @Html.ValidationMessageFor(model => model.HoTen, null, new { @class = "help-inline" })
+        </div>
+    </div>
+    @*row CMND*@
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label for="name">CMND</label>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.6rem"><i class="far fa-address-card"></i></div>
+                    <input type="text" name="SoCMND" class="form-control" id="cmnd"
+                           placeholder="291155xxx" required>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <!-- Put name validation error messages here -->
+            @Html.ValidationMessageFor(model => model.SoCMND, null, new { @class = "help-inline" })
+
+        </div>
+    </div>
+    @*row sdt*@
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label for="name">Số phone</label>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.6rem"><i class="fas fa-phone"></i></div>
+                    <input type="text" name="SoDienThoai" class="form-control" id="phone"
+                           placeholder="0965528621" required>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+
+            <!-- Put name validation error messages here -->
+            @Html.ValidationMessageFor(model => model.SoDienThoai, null, new { @class = "help-inline" })
+        </div>
+    </div>
+    @*row đia chi*@
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label for="name">Địa chỉ</label>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.6rem"><i class="fas fa-home"></i></div>
+                    <input type="text" name="DiaChi" class="form-control" id="address"
+                           placeholder="HoChiMinh City" required>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+
+            <!-- Put name validation error messages here -->
+            @Html.ValidationMessageFor(model => model.DiaChi, null, new { @class = "help-inline" })
+        </div>
+    </div>
+    @*row mo ta*@
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label for="name">Mô tả</label>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+                    <input type="text" name="MoTa" class="form-control" id="description"
+                           placeholder="vui tính ..." required>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+
+            <!-- Put name validation error messages here -->
+            @Html.ValidationMessageFor(model => model.MoTa, null, new { @class = "help-inline" })
+
+        </div>
+    </div>
+    @*Row Email*@
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label for="email">E-Mail Address</label>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.6rem"><i class="far fa-user"></i></div>
+                    <input type="text" name="Email" class="form-control" id="email"
+                           placeholder="you@example.com" required>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+
+            <!-- Put e-mail validation error messages here -->
+            @Html.ValidationMessageFor(model => model.Email, null, new { @class = "help-inline" })
+
+        </div>
+    </div>
+    @*row tên đăng nhập*@
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label for="name">Tên đăng nhập</label>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+                    <input type="text" name="TenDangNhap" class="form-control" id="username"
+                           placeholder="docaotri113" required>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+
+            <!-- Put name validation error messages here -->
+            @Html.ValidationMessageFor(model => model.TenDangNhap, null, new { @class = "help-inline" })
+
+        </div>
+    </div>
+    @*password*@
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label for="password">Password</label>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group has-danger">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.6rem"><i class="fas fa-key"></i></div>
+                    <input type="password" name="MatKhau" class="form-control" id="password"
+                           placeholder="Password" required>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-control-feedback">
+                <span class="text-danger align-middle">
+
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 field-label-responsive">
+            <label for="password">Confirm Password</label>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.6rem">
+                        <i class="fa fa-repeat"></i>
+                    </div>
+                    <input type="password" name="password-confirmation" class="form-control"
+                           id="password-confirm" placeholder="Password" required>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <h5 style="color:red">@ViewBag.ThongBaoMK</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <button type="submit" class="btn btn-success"><i class="fa fa-user-plus"></i> Register</button>
+        </div>
+    </div>
+}
+
+

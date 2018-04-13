@@ -179,6 +179,9 @@
     <Compile Include="Models\PHONG.cs">
       <DependentUpon>QuanLyKhachHangModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PhongVaTinhTrang_Result.cs">
+      <DependentUpon>QuanLyKhachHangModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\QuanLyKhachHangModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

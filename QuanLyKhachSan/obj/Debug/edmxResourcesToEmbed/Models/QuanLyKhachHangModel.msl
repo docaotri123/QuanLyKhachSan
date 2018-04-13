@@ -162,5 +162,13 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="PhongVaTinhTrang" FunctionName="QuanLyKhachSanModel.Store.PhongVaTinhTrang">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="QuanLyKhachSanModel.PhongVaTinhTrang_Result">
+          <ScalarProperty Name="MaPhong" ColumnName="MaPhong" />
+          <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

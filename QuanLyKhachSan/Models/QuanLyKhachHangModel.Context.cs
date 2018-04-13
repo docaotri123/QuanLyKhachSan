@@ -300,6 +300,28 @@ public partial class QuanLyKhachSanEntities : DbContext
         return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DanhSachPhong_Result>("DanhSachPhong", maKSParameter, maLoaiPhongParameter);
     }
 
+
+    public virtual ObjectResult<PhongVaTinhTrang_Result> PhongVaTinhTrang(string maLoaiPhong, string maKS, Nullable<System.DateTime> date)
+    {
+
+        var maLoaiPhongParameter = maLoaiPhong != null ?
+            new ObjectParameter("maLoaiPhong", maLoaiPhong) :
+            new ObjectParameter("maLoaiPhong", typeof(string));
+
+
+        var maKSParameter = maKS != null ?
+            new ObjectParameter("maKS", maKS) :
+            new ObjectParameter("maKS", typeof(string));
+
+
+        var dateParameter = date.HasValue ?
+            new ObjectParameter("date", date) :
+            new ObjectParameter("date", typeof(System.DateTime));
+
+
+        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PhongVaTinhTrang_Result>("PhongVaTinhTrang", maLoaiPhongParameter, maKSParameter, dateParameter);
+    }
+
 }
 
 }

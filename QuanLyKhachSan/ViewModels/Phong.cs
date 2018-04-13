@@ -14,5 +14,6 @@ namespace QuanLyKhachSan.ViewModels
         public string maKS { get; set; }
 
         public int? soPhong { get; set; }
+        public string stage { get; set; }
     }
 }

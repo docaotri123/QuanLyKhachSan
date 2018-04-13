@@ -171,6 +171,11 @@
           <Parameter Name="maLoaiPhong" Type="varchar" Mode="In" />
         </Function>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="PhongVaTinhTrang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="maLoaiPhong" Type="varchar" Mode="In" />
+          <Parameter Name="maKS" Type="varchar" Mode="In" />
+          <Parameter Name="date" Type="date" Mode="In" />
+        </Function>
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -523,6 +528,11 @@
             <Parameter Name="maKS" Mode="In" Type="String" />
             <Parameter Name="maLoaiPhong" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="PhongVaTinhTrang" ReturnType="Collection(QuanLyKhachSanModel.PhongVaTinhTrang_Result)">
+            <Parameter Name="maLoaiPhong" Mode="In" Type="String" />
+            <Parameter Name="maKS" Mode="In" Type="String" />
+            <Parameter Name="date" Mode="In" Type="DateTime" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -561,6 +571,10 @@
           <Property Type="String" Name="MaPhong" Nullable="false" MaxLength="10" />
           <Property Type="String" Name="LoaiPhong" Nullable="true" MaxLength="10" />
           <Property Type="Int32" Name="SoPhong" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="PhongVaTinhTrang_Result">
+          <Property Type="String" Name="MaPhong" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="TinhTrang" Nullable="true" MaxLength="20" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -726,6 +740,14 @@
                 <ScalarProperty Name="MaPhong" ColumnName="MaPhong" />
                 <ScalarProperty Name="LoaiPhong" ColumnName="LoaiPhong" />
                 <ScalarProperty Name="SoPhong" ColumnName="SoPhong" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PhongVaTinhTrang" FunctionName="QuanLyKhachSanModel.Store.PhongVaTinhTrang">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QuanLyKhachSanModel.PhongVaTinhTrang_Result">
+                <ScalarProperty Name="MaPhong" ColumnName="MaPhong" />
+                <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -50,16 +50,31 @@
 
     if (ViewBag.listPhong != null)
     {
-        foreach(var item in ViewBag.listPhong)
-        {
-            <h5>@item.soPhong</h5>
-        }
+        <table class="table">
+            <thead>
+                <tr>
+                    <th style="width:100px">Số Phòng</th>
+                    <th style="width:100px">Tình Trạng</th>
+                    <th style="width:100px">Last</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.listPhong)
+                {
+                    <tr>
+                        <th>@item.soPhong</th>
+                        <td>@item.stage</td>
+                        <td>kk</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     }
 
 }
 
 <script>
-   function myFunction() {
+    function myFunction() {
         var x = document.getElementById("mySelect").value;
         document.getElementById("maLP").value = x;
     }

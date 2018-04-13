@@ -29,17 +29,65 @@ namespace QuanLyKhachSan.Controllers
             ViewBag.listPhong = null;
             Phong x1;
             List<Phong> listPhong = new List<Phong>();
-            var lsPhong = db.DanhSachPhong(id, phong.maLoaiPhong);
+
             // return list Phong
             if (phong.maLoaiPhong != null)
             {
 
-                foreach(var item in lsPhong)
+                var lsPhong = db.DanhSachPhong(id, phong.maLoaiPhong).ToList();
+
+                //Lay tình trạng phòng
+                DateTime thisDay = DateTime.Today;
+                var Stage = db.PhongVaTinhTrang(phong.maLoaiPhong, id, thisDay);
+                List<string> trangThaiPhong = new List<string>();
+                List<string> soPhong = new List<string>();
+                int[] a = new int[lsPhong.Count ];
+                int i = 0, j = 0;
+                //Mục đích trả về kiểu list cho dễ tính toán
+                foreach (var item in Stage)
+                {
+                    trangThaiPhong.Add(item.MaPhong);
+                    i++;
+                }
+                i = 0;
+                foreach (var item1 in lsPhong)
+                {
+                    soPhong.Add( item1.MaPhong);
+                    i++;
+                }
+                i = 0;
+                //Ghi lại trạng thái phong đã đặt
+                for (; i < trangThaiPhong.Count(); i++)
+                {
+                    for (; j < lsPhong.Count(); j++)
+                    {
+                        a[i] = 0;
+                        if (trangThaiPhong[i] == soPhong[j])
+                        {
+                            a[i] = 1;
+                            break;
+                        }
+                    }
+                }
+
+
+                //
+                i = 0;
+                foreach (var item in lsPhong)
                 {
                     x1 = new Phong();
                     x1.maPhong = item.MaPhong;
                     x1.maLoaiPhong = item.LoaiPhong;
                     x1.soPhong = item.SoPhong;
+                    if (a[i] == 1)
+                    {
+                        x1.stage = "đang sử dụng";
+                    }
+                    else
+                    {
+                        x1.stage = "còn trống";
+                    }
+                    i++;
 
                     listPhong.Add(x1);
                 }
@@ -55,6 +103,11 @@ namespace QuanLyKhachSan.Controllers
             return View();
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+            db.Dispose();
+        }
 
     }
 }

@@ -217,6 +217,10 @@
     <Parameter Name="sao" Type="int" Mode="In" />
     <Parameter Name="thanhPho" Type="nvarchar" Mode="In" />
   </Function>
+  <Function Name="TrangThaiPhongTheoNgay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="maLoaiPhong" Type="varchar" Mode="In" />
+    <Parameter Name="date" Type="date" Mode="In" />
+  </Function>
   <EntityContainer Name="QuanLyKhachSanModelStoreContainer">
     <EntitySet Name="DATPHONG" EntityType="Self.DATPHONG" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="HOADON" EntityType="Self.HOADON" Schema="dbo" store:Type="Tables" />

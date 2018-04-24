@@ -15,6 +15,9 @@ namespace QuanLyKhachSan.Controllers
 
         public ActionResult GiaVaThanhPho(decimal? gia, string tp = "")
         {
+            ViewBag.gia = gia;
+         
+            ViewBag.city = tp;
             var data = db.TimKiemGiaVaThanhPho(gia, tp);
 
 
@@ -23,6 +26,10 @@ namespace QuanLyKhachSan.Controllers
         // GET: TimKiemKS
         public ActionResult HangSaoVaThanhPho(int? sao, string tp = "")
         {
+            ViewBag.sao = sao.ToString();
+
+            ViewBag.city = tp;
+
             var data = db.TimKiemSaoVaThanhPho(sao, tp);
 
 

@@ -206,6 +206,9 @@
       <End Role="PHONG" EntitySet="PHONGs" />
       <End Role="TRANGTHAIPHONG" EntitySet="TRANGTHAIPHONGs" />
     </AssociationSet>
+    <FunctionImport Name="DanhSachPhong" ReturnType="Collection(QuanLyKhachSanModel.DanhSachPhong_Result)">
+      <Parameter Name="maLoaiPhong" Mode="In" Type="String" />
+    </FunctionImport>
     <FunctionImport Name="sp_alterdiagram">
       <Parameter Name="diagramname" Mode="In" Type="String" />
       <Parameter Name="owner_id" Mode="In" Type="Int32" />
@@ -258,15 +261,15 @@
       <Parameter Name="sao" Mode="In" Type="Int32" />
       <Parameter Name="thanhPho" Mode="In" Type="String" />
     </FunctionImport>
-    <FunctionImport Name="DanhSachPhong" ReturnType="Collection(QuanLyKhachSanModel.DanhSachPhong_Result)">
+    <FunctionImport Name="TrangThaiPhongTheoNgay" ReturnType="Collection(QuanLyKhachSanModel.TrangThaiPhongTheoNgay_Result)">
       <Parameter Name="maLoaiPhong" Mode="In" Type="String" />
-    </FunctionImport>
-    <FunctionImport Name="PhongVaTinhTrang" ReturnType="Collection(QuanLyKhachSanModel.PhongVaTinhTrang_Result)">
-      <Parameter Name="maLoaiPhong" Mode="In" Type="String" />
-      <Parameter Name="maKS" Mode="In" Type="String" />
       <Parameter Name="date" Mode="In" Type="DateTime" />
     </FunctionImport>
   </EntityContainer>
+  <ComplexType Name="DanhSachPhong_Result">
+    <Property Type="String" Name="MaPhong" Nullable="false" MaxLength="10" />
+    <Property Type="Int32" Name="SoPhong" Nullable="true" />
+  </ComplexType>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
     <Property Type="Binary" Name="definition" Nullable="true" />
@@ -300,13 +303,8 @@
     <Property Type="Decimal" Name="GiaTB" Nullable="true" Precision="19" />
     <Property Type="String" Name="MoTa" Nullable="true" MaxLength="200" />
   </ComplexType>
-  <ComplexType Name="DanhSachPhong_Result">
-    <Property Type="String" Name="MaPhong" Nullable="false" MaxLength="10" />
-    <Property Type="String" Name="LoaiPhong" Nullable="true" MaxLength="10" />
+  <ComplexType Name="TrangThaiPhongTheoNgay_Result">
     <Property Type="Int32" Name="SoPhong" Nullable="true" />
-  </ComplexType>
-  <ComplexType Name="PhongVaTinhTrang_Result">
-    <Property Type="String" Name="MaPhong" Nullable="true" MaxLength="10" />
     <Property Type="String" Name="TinhTrang" Nullable="true" MaxLength="20" />
   </ComplexType>
 </Schema>

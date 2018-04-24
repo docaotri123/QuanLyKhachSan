@@ -1,9 +1,8 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Signup";
 }
 
-@model QuanLyKhachSan.Models.KHACHHANG
+@model KhachHangVM
 
 @using (Html.BeginForm())
 {
@@ -26,8 +25,7 @@
             <div class="form-group">
                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                     <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
-                    <input type="text" name="HoTen" class="form-control" id="hoten"
-                           placeholder="John Doe" required autofocus>
+                    @Html.TextBoxFor(m => m.HoTen, new { @class = "form-control", placeholder = "Nhap Ho Ten" })
                 </div>
 
             </div>
@@ -46,8 +44,7 @@
             <div class="form-group">
                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                     <div class="input-group-addon" style="width: 2.6rem"><i class="far fa-address-card"></i></div>
-                    <input type="text" name="SoCMND" class="form-control" id="cmnd"
-                           placeholder="291155xxx" required>
+                    @Html.TextBoxFor(m => m.SoCMND, new { @class = "form-control", placeholder = "CMND" })
                 </div>
             </div>
         </div>
@@ -86,8 +83,7 @@
             <div class="form-group">
                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                     <div class="input-group-addon" style="width: 2.6rem"><i class="fas fa-home"></i></div>
-                    <input type="text" name="DiaChi" class="form-control" id="address"
-                           placeholder="HoChiMinh City" required>
+                    @Html.TextBoxFor(m => m.DiaChi, new { @class = "form-control", placeholder = "Địa chỉ" })
                 </div>
             </div>
         </div>
@@ -127,8 +123,7 @@
             <div class="form-group">
                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                     <div class="input-group-addon" style="width: 2.6rem"><i class="far fa-user"></i></div>
-                    <input type="text" name="Email" class="form-control" id="email"
-                           placeholder="you@example.com" required>
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "abc@gmail.com" })
                 </div>
             </div>
         </div>
@@ -148,8 +143,7 @@
             <div class="form-group">
                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                     <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
-                    <input type="text" name="TenDangNhap" class="form-control" id="username"
-                           placeholder="docaotri113" required>
+                    @Html.TextBoxFor(m => m.TenDangNhap, new { @class = "form-control", placeholder = "UserName" })
                 </div>
             </div>
         </div>
@@ -169,8 +163,7 @@
             <div class="form-group has-danger">
                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                     <div class="input-group-addon" style="width: 2.6rem"><i class="fas fa-key"></i></div>
-                    <input type="password" name="MatKhau" class="form-control" id="password"
-                           placeholder="Password" required>
+                    @Html.PasswordFor(m => m.MatKhau, new { @class = "form-control", placeholder = "Password" })
                 </div>
             </div>
         </div>
@@ -192,8 +185,7 @@
                     <div class="input-group-addon" style="width: 2.6rem">
                         <i class="fa fa-repeat"></i>
                     </div>
-                    <input type="password" name="password-confirmation" class="form-control"
-                           id="password-confirm" placeholder="Password" required>
+                    @Html.PasswordFor(m => m.ComparePassword, new { @class = "form-control", placeholder = "Password" })
                 </div>
             </div>
         </div>

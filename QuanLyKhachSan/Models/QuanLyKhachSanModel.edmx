@@ -167,15 +167,9 @@
           </ReferentialConstraint>
         </Association>
         <Function Name="DanhSachPhong" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="maKS" Type="varchar" Mode="In" />
           <Parameter Name="maLoaiPhong" Type="varchar" Mode="In" />
         </Function>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
-        <Function Name="PhongVaTinhTrang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="maLoaiPhong" Type="varchar" Mode="In" />
-          <Parameter Name="maKS" Type="varchar" Mode="In" />
-          <Parameter Name="date" Type="date" Mode="In" />
-        </Function>
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -227,6 +221,10 @@
         <Function Name="TimKiemSaoVaThanhPho" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="sao" Type="int" Mode="In" />
           <Parameter Name="thanhPho" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="TrangThaiPhongTheoNgay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="maLoaiPhong" Type="varchar" Mode="In" />
+          <Parameter Name="date" Type="date" Mode="In" />
         </Function>
         <EntityContainer Name="QuanLyKhachSanModelStoreContainer">
           <EntitySet Name="DATPHONG" EntityType="Self.DATPHONG" Schema="dbo" store:Type="Tables" />
@@ -472,6 +470,9 @@
             <End Role="PHONG" EntitySet="PHONGs" />
             <End Role="TRANGTHAIPHONG" EntitySet="TRANGTHAIPHONGs" />
           </AssociationSet>
+          <FunctionImport Name="DanhSachPhong" ReturnType="Collection(QuanLyKhachSanModel.DanhSachPhong_Result)">
+          <Parameter Name="maLoaiPhong" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="sp_alterdiagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
@@ -524,16 +525,15 @@
             <Parameter Name="sao" Mode="In" Type="Int32" />
             <Parameter Name="thanhPho" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="DanhSachPhong" ReturnType="Collection(QuanLyKhachSanModel.DanhSachPhong_Result)">
-            <Parameter Name="maKS" Mode="In" Type="String" />
+          <FunctionImport Name="TrangThaiPhongTheoNgay" ReturnType="Collection(QuanLyKhachSanModel.TrangThaiPhongTheoNgay_Result)">
             <Parameter Name="maLoaiPhong" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="PhongVaTinhTrang" ReturnType="Collection(QuanLyKhachSanModel.PhongVaTinhTrang_Result)">
-            <Parameter Name="maLoaiPhong" Mode="In" Type="String" />
-            <Parameter Name="maKS" Mode="In" Type="String" />
             <Parameter Name="date" Mode="In" Type="DateTime" />
           </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="DanhSachPhong_Result">
+          <Property Type="String" Name="MaPhong" Nullable="false" MaxLength="10" />
+          <Property Type="Int32" Name="SoPhong" Nullable="true" />
+        </ComplexType>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
           <Property Type="Binary" Name="definition" Nullable="true" />
@@ -567,13 +567,8 @@
           <Property Type="Decimal" Name="GiaTB" Nullable="true" Precision="19" />
           <Property Type="String" Name="MoTa" Nullable="true" MaxLength="200" />
         </ComplexType>
-        <ComplexType Name="DanhSachPhong_Result">
-          <Property Type="String" Name="MaPhong" Nullable="false" MaxLength="10" />
-          <Property Type="String" Name="LoaiPhong" Nullable="true" MaxLength="10" />
+        <ComplexType Name="TrangThaiPhongTheoNgay_Result">
           <Property Type="Int32" Name="SoPhong" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="PhongVaTinhTrang_Result">
-          <Property Type="String" Name="MaPhong" Nullable="true" MaxLength="10" />
           <Property Type="String" Name="TinhTrang" Nullable="true" MaxLength="20" />
         </ComplexType>
       </Schema>
@@ -678,6 +673,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="DanhSachPhong" FunctionName="QuanLyKhachSanModel.Store.DanhSachPhong">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QuanLyKhachSanModel.DanhSachPhong_Result">
+                <ScalarProperty Name="MaPhong" ColumnName="MaPhong" />
+                <ScalarProperty Name="SoPhong" ColumnName="SoPhong" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="QuanLyKhachSanModel.Store.sp_alterdiagram" />
           <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="QuanLyKhachSanModel.Store.sp_creatediagram" />
           <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="QuanLyKhachSanModel.Store.sp_dropdiagram" />
@@ -734,19 +737,10 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="DanhSachPhong" FunctionName="QuanLyKhachSanModel.Store.DanhSachPhong">
+          <FunctionImportMapping FunctionImportName="TrangThaiPhongTheoNgay" FunctionName="QuanLyKhachSanModel.Store.TrangThaiPhongTheoNgay">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="QuanLyKhachSanModel.DanhSachPhong_Result">
-                <ScalarProperty Name="MaPhong" ColumnName="MaPhong" />
-                <ScalarProperty Name="LoaiPhong" ColumnName="LoaiPhong" />
+              <ComplexTypeMapping TypeName="QuanLyKhachSanModel.TrangThaiPhongTheoNgay_Result">
                 <ScalarProperty Name="SoPhong" ColumnName="SoPhong" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="PhongVaTinhTrang" FunctionName="QuanLyKhachSanModel.Store.PhongVaTinhTrang">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="QuanLyKhachSanModel.PhongVaTinhTrang_Result">
-                <ScalarProperty Name="MaPhong" ColumnName="MaPhong" />
                 <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
               </ComplexTypeMapping>
             </ResultMapping>

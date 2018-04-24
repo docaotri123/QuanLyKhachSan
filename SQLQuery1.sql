@@ -1,4 +1,4 @@
-create PROC ThongKeDTNgay @ngay DATE
+﻿create PROC ThongKeDTNgay @ngay DATE
 AS
 	DECLARE @kq MONEY
 	SET @kq=0
@@ -11,7 +11,7 @@ DECLARE @kq MONEY
  EXEC @kq= dbo.ThongKeDTNgay @ngay = '2003-10-17' -- date
  PRINT @kq
 
-----PROC Them Kh�ch H�ng
+----PROC Them Khách Hàng
 
 CREATE PROC ThemKhachHang 
 @maKH VARCHAR(10),
@@ -60,7 +60,7 @@ CREATE PROC ThemKhachHang
 		END
  GO
  DECLARE @test INT
- EXEC @test=ThemKhachHang 'aBc56ok','?? Tr�','docaotri','123456','291155458','Tay Ninh','19001560',N'Vui t�nh','dctri211997@gmail.com'
+ EXEC @test=ThemKhachHang 'aBc56ok','?? Trí','docaotri','123456','291155458','Tay Ninh','19001560',N'Vui tính','dctri211997@gmail.com'
  IF (@test=-1)
 	PRINT 'THem That Bai'
 ELSE
@@ -70,7 +70,7 @@ CREATE PROC TimKiemGiaVaThanhPho @gia money,@thanhPho NVARCHAR(30)
 AS
 	SELECT * FROM dbo.KHACHSAN KS WHERE (KS.GiaTB>=@gia-30 AND KS.GiaTB<=@gia+30) AND KS.ThanhPho LIKE (@thanhPho)
 GO
-EXEC TimKiemGiaVaThanhPho 100,N'T�y Ninh'
+EXEC TimKiemGiaVaThanhPho 100,N'Tây Ninh'
 
 --PROC TimKiemSaoVaThanhPho
 CREATE PROC TimKiemSaoVaThanhPho @sao int,@thanhPho NVARCHAR(30)
@@ -78,7 +78,7 @@ AS
 	SELECT * FROM dbo.KHACHSAN KS WHERE (KS.SoSao=@sao) AND KS.ThanhPho LIKE (@thanhPho)
 GO
 
-EXEC TimKiemSaoVaThanhPho 3,N'T�y Ninh'
+EXEC TimKiemSaoVaThanhPho 3,N'Tây Ninh'
 
 --PROC Signin
 ALTER PROC Signin @userName VARCHAR(30),@passWord VARCHAR(30)
@@ -92,9 +92,48 @@ DECLARE @ck INT
 EXEC @ck=Signin 'TriDo113','123456'
 PRINT @ck
 
+--PROC DanhSachPhong
+ALTER PROC DanhSachPhong @maLoaiPhong VARCHAR(30)
+AS
+	SELECT p.MaPhong,p.SoPhong FROM dbo.PHONG p INNER JOIN dbo.LOAIPHONG lp ON p.LoaiPhong=lp.MaLoaiPhong AND lp.MaLoaiPhong= @maLoaiPhong
+GO
+
+EXEC DanhSachPhong '007LUS'
+
+--PROC TinhTrangPhongTheoNgay
+CREATE PROC TrangThaiPhongTheoNgay @maLoaiPhong VARCHAR(30),@date DATE
+AS
+		SELECT p.SoPhong,ttp.TinhTrang FROM dbo.TRANGTHAIPHONG ttp RIGHT JOIN dbo.PHONG p ON ttp.MaPhong=p.MaPhong INNER JOIN
+	dbo.LOAIPHONG lp ON p.LoaiPhong=lp.MaLoaiPhong AND lp.MaLoaiPhong=@maLoaiPhong AND ttp.Ngay=@date
+	GROUP BY p.SoPhong,ttp.TinhTrang
+GO
+
+EXEC TrangThaiPhongTheoNgay '0P9J6EHG9D','2018-04-16'
+--PROC đặt phòng khách sạn
+create proc DatPhongKhachSan  @MaDP varchar(10),@MaPhong varchar(10),@MaKH varchar(10), @NgayBatDau date,@NgayKetThuc date,@DonGia money,@Mota nvarchar(100), @TinhTrang nvarchar(50)
+as
+begin
+	if(not exists(select * from DATPHONG where @MaPhong=MaPhong and ((@NgayBatDau between NgayBatDau and NgayTraPhong)or(@NgayKetThuc between NgayBatDau and NgayTraPhong))) 
+	and  DATEDIFF(DAY,getdate(),@NgayBatDau)>=0 and  DATEDIFF(DAY,@NgayBatDau,@NgayKetThuc)>=0)
+	begin
+		insert into DATPHONG values (@MaDP,@MaPhong,@MaKH,@NgayBatDau,@NgayKetThuc,getdate(),@DonGia,@Mota,@TinhTrang)
+		if(DATEDIFF(DAY,@NgayBatDau,getdate())=0)
+		begin
+			update TRANGTHAIPHONG
+			set TinhTrang=N'Đang sử dụng'
+			where MaPhong=@MaPhong and DATEDIFF(DAY,@NgayBatDau,getdate())=0
+		end
+	end
+END
+
+
+
 --test 
 SELECT *FROM dbo.HOADON WHERE YEAR(NgayThanhToan) >2000
 SELECT *FROM dbo.KHACHHANG WHERE SoCMND='29115562'
+SELECT * FROM dbo.TRANGTHAIPHONG
 
 
 exec [dbo].[Signin] @userName=N'TriDo113',@passWord=N'123456'
+
+SELECT *FROM dbo.KHACHHANG

@@ -97,6 +97,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="DanhSachPhong" FunctionName="QuanLyKhachSanModel.Store.DanhSachPhong">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="QuanLyKhachSanModel.DanhSachPhong_Result">
+          <ScalarProperty Name="MaPhong" ColumnName="MaPhong" />
+          <ScalarProperty Name="SoPhong" ColumnName="SoPhong" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="QuanLyKhachSanModel.Store.sp_alterdiagram" />
     <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="QuanLyKhachSanModel.Store.sp_creatediagram" />
     <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="QuanLyKhachSanModel.Store.sp_dropdiagram" />
@@ -153,12 +161,11 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="DanhSachPhong" FunctionName="QuanLyKhachSanModel.Store.DanhSachPhong">
+    <FunctionImportMapping FunctionImportName="TrangThaiPhongTheoNgay" FunctionName="QuanLyKhachSanModel.Store.TrangThaiPhongTheoNgay">
       <ResultMapping>
-        <ComplexTypeMapping TypeName="QuanLyKhachSanModel.DanhSachPhong_Result">
-          <ScalarProperty Name="MaPhong" ColumnName="MaPhong" />
-          <ScalarProperty Name="LoaiPhong" ColumnName="LoaiPhong" />
+        <ComplexTypeMapping TypeName="QuanLyKhachSanModel.TrangThaiPhongTheoNgay_Result">
           <ScalarProperty Name="SoPhong" ColumnName="SoPhong" />
+          <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

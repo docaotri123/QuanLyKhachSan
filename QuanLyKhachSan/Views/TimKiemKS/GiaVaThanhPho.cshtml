@@ -1,7 +1,9 @@
-﻿@using QuanLyKhachSan.Models;
+﻿@using QuanLyKhachSan.Models
+@using QuanLyKhachSan.Dropdownlist
 @model IEnumerable<TimKiemGiaVaThanhPho_Result>
 @{
     ViewBag.Title = "GiaVaThanhPho";
+    string selectedCity = ViewBag.city;
 }
 
 <div class="row">
@@ -11,16 +13,17 @@
             <tbody>
                 <tr>
                     <th style="width:100px">Giá cần tìm</th>
-                    <th style="width:300px"><input class="form-control input-lg" id="inputlg" type="text" name="gia"></th>
+                    <th style="width:300px"><input class="form-control input-lg" id="inputlg" type="text" name="gia" value="@ViewBag.gia"></th>
                     <th style="width:150px;text-align:right;text-align:center">Tên thành phố</th>
                     <th style="width:150px">
-                        <select id="mySelect" class="form-control">
-                            <option value="hcm" selected>HCM</option>
-                            <option value="hanoi">Hà Nội</option>
-                            <option value="Đà Nẵng">Đà Đẵng</option>
-                            <option value="Tây Ninh">Tây Ninh</option>
-                            <option value="Vũng Tàu">Vũng Tàu</option>
-                        </select>
+                        @*<select id="mySelect" class="form-control">
+                                <option value="hcm" >HCM</option>
+                                <option value="hanoi">Hà Nội</option>
+                                <option value="Đà Nẵng">Đà Đẵng</option>
+                                <option value="Tây Ninh">Tây Ninh</option>
+                                <option value="Vũng Tàu">Vũng Tàu</option>
+                            </select>*@
+                        @Html.DropDownList("mycity", DropDownList.GetCities(selectedCity), new { @class= "form-control" })
                     </th>
 
                     <th style="width:200px; padding-left: 15px"><button type="submit" class="btn btn-success" onclick="myFunction()"><i class="fas fa-search-plus"></i> Tìm kiếm</button></th>
@@ -51,7 +54,7 @@
             {
                 <tbody>
                     <tr>
-                        <td>@Html.ActionLink(item.TenKS, "DetailRoom", "BookRoom", new { id = item.MaKS },null)</td>
+                        <td>@Html.ActionLink(item.TenKS, "DetailRoom", "BookRoom", new { makS = item.MaKS }, null)</td>
                         <td>@item.SoSao</td>
                         <td>@item.SoNha</td>
                         <td>@item.Duong</td>
@@ -71,7 +74,7 @@
 
 <script>
     function myFunction() {
-        var x = document.getElementById("mySelect").value;
+        var x = document.getElementById("mycity").value;
         document.getElementById("tp").value = x;
     }
 </script>

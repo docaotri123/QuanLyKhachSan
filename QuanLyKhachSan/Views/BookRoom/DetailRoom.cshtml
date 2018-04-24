@@ -1,9 +1,16 @@
 ﻿@using QuanLyKhachSan.ViewModels;
-@model Hotel
+@using QuanLyKhachSan.Dropdownlist;
+
 
 
 @{
     ViewBag.Title = "BookRoom";
+    var Hotel = ViewBag.Hotel;
+    IEnumerable<LoaiPhong> listLoaiPhong = ViewBag.listLoaiPhong;
+    string maKS = Hotel.MaKS;
+    string selectedValue = ViewBag.maLoaiPhong;
+    string ngayDatPhong = ViewBag.ngayDatPhong;
+
 }
 
 @using (Html.BeginForm("DetailRoom", "BookRoom", FormMethod.Get))
@@ -23,31 +30,55 @@
         </thead>
         <tbody>
             <tr>
-                <td>@Model.TenKS</td>
-                <td>@Model.SoSao</td>
-                <td>@Model.SoNha</td>
-                <td>@Model.Duong</td>
-                <td>@Model.Quan</td>
-                <td>@Model.ThanhPho</td>
-                <td>@Model.GiaTB</td>
-                <td>@Model.MoTa</td>
+                <td>@Hotel.TenKS</td>
+                <td>@Hotel.SoSao</td>
+                <td>@Hotel.SoNha</td>
+                <td>@Hotel.Duong</td>
+                <td>@Hotel.Quan</td>
+                <td>@Hotel.ThanhPho</td>
+                <td>@Hotel.GiaTB</td>
+                <td>@Hotel.MoTa</td>
             </tr>
         </tbody>
     </table>
+
+
+    //Du lieu an
     <hr />
+    <input hidden id="maKS" type="text" name="maKS" value=@Hotel.MaKS>
     <input hidden id="maLP" type="text" name="maLoaiPhong">
-    <input hidden id="msKS" type="text" name="maKS" value=@Model.MaKS>
-    <h3>Chọn loại phòng muốn đặt</h3>
-    <select id="mySelect" class="form-control">
-        @foreach (var item in ViewBag.listLoaiPhong)
-        {
-            <option value=@item.MaLoaiPhong>@item.TenLoaiPhong</option>
-        }
-    </select>
+    <input hidden id="begin_Date" type="text" name="ngayBatDau">
+    <input hidden id="end_Date" type="text" name="ngayTraPhong">
+    <input hidden id="donGia" type="text" name="donGia" value=@Hotel.GiaTB>
+
+    <div>
+        <div class="inline">
+            <h3>Chọn Loại Phòng Muốn Đặt</h3>
+            @*<select id="myselect" class="form-control">
+                    @foreach (var item in listLoaiPhong)
+                    {
+                        <option value=@item.MaLoaiPhong>@item.TenLoaiPhong</option>
+                    }
+                </select>*@
+            @Html.DropDownList("myselect", DropDownList.GetTyleRoom(maKS, selectedValue), new { @class = "form-control" })
+        </div>
+        <div class="inline" style="margin-left:80px">
+            <h3>Chọn Ngày Muốn Đặt </h3>
+            @if (ngayDatPhong == null || ngayDatPhong == "")
+            {
+                ngayDatPhong = ViewBag.thisday;
+            }
+
+            <input type="date" id="book_Date" value=@ngayDatPhong class="form-control">
+            <p id="checkDate"></p>
+        </div>
+        <br class="clearBoth" /><!-- you may or may not need this -->
+    </div>
     <hr />
-    <th style="width:200px; padding-left: 15px"><button type="submit" class="btn btn-success" onclick="myFunction()"><i class="fas fa-search-plus"></i> In Phòng</button></th>
+    <th style="width:200px; padding-left: 15px"><button type="submit" class="btn btn-success" onclick="InPhong()"><i class="fas fa-search-plus"></i> In Phòng</button></th>
     <hr />
 
+    //List Phong
     if (ViewBag.listPhong != null)
     {
         <table class="table">
@@ -55,27 +86,89 @@
                 <tr>
                     <th style="width:100px">Số Phòng</th>
                     <th style="width:100px">Tình Trạng</th>
-                    <th style="width:100px">Last</th>
+                    <th style="width:100px">Ngày trả phòng</th>
+                    <th style="width:100px">Ðặt phòng</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in ViewBag.listPhong)
                 {
                     <tr>
-                        <th>@item.soPhong</th>
+                        <td>@item.soPhong</td>
                         <td>@item.stage</td>
-                        <td>kk</td>
+                        <td>
+                            <input type="date" id="pay_Date" value=@ngayDatPhong class="form-control" style="width:200px" onchange="checkDate()" />
+                        </td>
+                        @if(ViewBag.User!="")
+                        {
+                            <td>
+                                <button type="submit" class="btn btn-danger" onclick="DatPhong()">
+                                    <i class="fas fa-plus-circle"></i> Ðặt Phòng
+                                </button>
+                                <input hidden id=@item.maPhong type="text" value=@item.maPhong name="maPhong">
+                            </td>
+                        }
+                        else
+                        {
+                            <td>hihi</td>
+                        }
+
                     </tr>
                 }
             </tbody>
         </table>
-    }
 
+    }
 }
 
+<style>
+    div.inline {
+        float: left;
+    }
+
+    .clearBoth {
+        clear: both;
+    }
+</style>
+
 <script>
-    function myFunction() {
-        var x = document.getElementById("mySelect").value;
+    function InPhong() {
+        var x = document.getElementById("myselect").value;
         document.getElementById("maLP").value = x;
+
+        var dateBegin = document.getElementById("book_Date").value;
+        document.getElementById("begin_Date").value = dateBegin;
+
+
+    }
+
+    function DatPhong() {
+        var x = document.getElementById("myselect").value;
+        document.getElementById("maLP").value = x;
+
+        var dateBegin = document.getElementById("book_Date").value;
+        document.getElementById("begin_Date").value = dateBegin;
+
+
+
+        var dateEnd = document.getElementById("pay_Date").value;
+        document.getElementById("end_Date").value = dateEnd;
+
+    
+
+
+    }
+
+    function checkDate() {
+        let a = document.getElementById("book_Date");
+        let b = document.getElementById("pay_Date");
+        let bookDate = new Date(a.value);
+        let payDate = new Date(b.value);
+        if (bookDate >= payDate) {
+            document.getElementById("checkDate").innerHTML = "Ngày trả phòng chưa hợp lệ kiểm tra lại";
+        }
+        else {
+            document.getElementById("checkDate").innerHTML = "";
+        }
     }
 </script>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using QuanLyKhachSan.Models;
+using QuanLyKhachSan.ViewModels;
 
 namespace QuanLyKhachSan.Controllers
 {
@@ -15,7 +16,7 @@ namespace QuanLyKhachSan.Controllers
         {
             //var a = db.ThongKeDTNgay_KhongIndex(DateTime.Now);
 
-           
+
             return View();
         }
 
@@ -40,34 +41,25 @@ namespace QuanLyKhachSan.Controllers
             return new string(Enumerable.Repeat(chars, len)
               .Select(s => s[random.Next(s.Length)]).ToArray());
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Signup(KHACHHANG kh, FormCollection fr)
+        public ActionResult Signup(KhachHangVM kh)
         {
             if (ModelState.IsValid)
             {
                 var ck = 0;
-                var ps = fr["password-confirmation"].ToString();
-                if (ps == kh.MatKhau)
+                var maKH = RandomString();
+                ck = db.ThemKhachHang(maKH, kh.HoTen, kh.TenDangNhap, kh.MatKhau, kh.SoCMND, kh.DiaChi, kh.SoDienThoai, kh.MoTa, kh.Email);
+                if (ck == -1)
                 {
-                    var maKH = RandomString();
-                    ck = db.ThemKhachHang(maKH, kh.HoTen, kh.TenDangNhap, kh.MatKhau, kh.SoCMND, kh.DiaChi, kh.SoDienThoai, kh.MoTa, kh.Email);
-                    if (ck == -1)
-                    {
-                        ViewBag.ThongBao = "Đăng ký thất bại";
-                    }
-                    else
-                    {
-                        ViewBag.ThongBao = "Đăng ký thành công";
-                        db.SaveChanges();
-                    }
+                    ViewBag.ThongBao = "Đăng ký thất bại";
                 }
                 else
                 {
-                    ViewBag.ThongBaoMK = "Xác nhận lại mật khẩu";
+                    ViewBag.ThongBao = "Đăng ký thành công";
+                    db.SaveChanges();
                 }
-
-
             }
             return View(kh);
         }

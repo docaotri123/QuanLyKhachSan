@@ -13,7 +13,7 @@ namespace QuanLyKhachSan.Models
     
     public partial class TimKiemGiaVaThanhPho_Result
     {
-        public string MaKS { get; set; }
+        public int MaKS { get; set; }
         public string TenKS { get; set; }
         public Nullable<int> SoSao { get; set; }
         public Nullable<int> SoNha { get; set; }

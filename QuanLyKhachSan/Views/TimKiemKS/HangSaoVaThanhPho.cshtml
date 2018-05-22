@@ -26,13 +26,7 @@
                     </th>
                     <th style="width:150px;text-align:right;text-align:center">Tên thành phố</th>
                     <th style="width:150px">
-                        @*<select id="mySelect" class="form-control">
-                            <option value="hcm" selected>HCM</option>
-                            <option value="hanoi">Hà Nội</option>
-                            <option value="Đà Nẵng">Đà Đẵng</option>
-                            <option value="Tây Ninh">Tây Ninh</option>
-                            <option value="Vũng Tàu">Vũng Tàu</option>
-                        </select>*@
+ 
                           @Html.DropDownList("mycity", DropDownList.GetCities(selectedCity), new { @class= "form-control" })
 
                     </th>
@@ -66,7 +60,7 @@
             {
                 <tbody>
                     <tr>
-                        <td>@item.TenKS</td>
+                        <td>@Html.ActionLink(item.TenKS, "DetailRoom", "BookRoom", new { makS = item.MaKS }, null)</td>
                         <td>@item.SoSao</td>
                         <td>@item.SoNha</td>
                         <td>@item.Duong</td>

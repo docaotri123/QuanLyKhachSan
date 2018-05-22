@@ -7,7 +7,7 @@ namespace QuanLyKhachSan.ViewModels
 {
     public class UserName
     {
-        public string maKH { get; set; }
+        public int? maKH { get; set; }
         public string nameKH { get; set; }
         public string userName { get; set; }
         public string password { get; set; }

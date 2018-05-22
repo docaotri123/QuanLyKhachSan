@@ -33,127 +33,19 @@ namespace QuanLyKhachSan.Models
         public virtual DbSet<KHACHSAN> KHACHSANs { get; set; }
         public virtual DbSet<LOAIPHONG> LOAIPHONGs { get; set; }
         public virtual DbSet<PHONG> PHONGs { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TRANGTHAIPHONG> TRANGTHAIPHONGs { get; set; }
     
-        public virtual ObjectResult<DanhSachPhong_Result> DanhSachPhong(string maLoaiPhong)
+        public virtual ObjectResult<DanhSachPhong_Result> DanhSachPhong(Nullable<int> maLoaiPhong)
         {
-            var maLoaiPhongParameter = maLoaiPhong != null ?
+            var maLoaiPhongParameter = maLoaiPhong.HasValue ?
                 new ObjectParameter("maLoaiPhong", maLoaiPhong) :
-                new ObjectParameter("maLoaiPhong", typeof(string));
+                new ObjectParameter("maLoaiPhong", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DanhSachPhong_Result>("DanhSachPhong", maLoaiPhongParameter);
         }
     
-        public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        public virtual int ThemKhachHang(string hoTen, string tenDangNhap, string matKhau, string soCMND, string diaChi, string soDienThoai, string moTa, string email)
         {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            var versionParameter = version.HasValue ?
-                new ObjectParameter("version", version) :
-                new ObjectParameter("version", typeof(int));
-    
-            var definitionParameter = definition != null ?
-                new ObjectParameter("definition", definition) :
-                new ObjectParameter("definition", typeof(byte[]));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_alterdiagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
-        }
-    
-        public virtual int sp_creatediagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            var versionParameter = version.HasValue ?
-                new ObjectParameter("version", version) :
-                new ObjectParameter("version", typeof(int));
-    
-            var definitionParameter = definition != null ?
-                new ObjectParameter("definition", definition) :
-                new ObjectParameter("definition", typeof(byte[]));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_creatediagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
-        }
-    
-        public virtual int sp_dropdiagram(string diagramname, Nullable<int> owner_id)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_dropdiagram", diagramnameParameter, owner_idParameter);
-        }
-    
-        public virtual ObjectResult<sp_helpdiagramdefinition_Result> sp_helpdiagramdefinition(string diagramname, Nullable<int> owner_id)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagramdefinition_Result>("sp_helpdiagramdefinition", diagramnameParameter, owner_idParameter);
-        }
-    
-        public virtual ObjectResult<sp_helpdiagrams_Result> sp_helpdiagrams(string diagramname, Nullable<int> owner_id)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagrams_Result>("sp_helpdiagrams", diagramnameParameter, owner_idParameter);
-        }
-    
-        public virtual int sp_renamediagram(string diagramname, Nullable<int> owner_id, string new_diagramname)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            var new_diagramnameParameter = new_diagramname != null ?
-                new ObjectParameter("new_diagramname", new_diagramname) :
-                new ObjectParameter("new_diagramname", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_renamediagram", diagramnameParameter, owner_idParameter, new_diagramnameParameter);
-        }
-    
-        public virtual int sp_upgraddiagrams()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
-        }
-    
-        public virtual int ThemKhachHang(string maKH, string hoTen, string tenDangNhap, string matKhau, string soCMND, string diaChi, string soDienThoai, string moTa, string email)
-        {
-            var maKHParameter = maKH != null ?
-                new ObjectParameter("maKH", maKH) :
-                new ObjectParameter("maKH", typeof(string));
-    
             var hoTenParameter = hoTen != null ?
                 new ObjectParameter("hoTen", hoTen) :
                 new ObjectParameter("hoTen", typeof(string));
@@ -186,16 +78,7 @@ namespace QuanLyKhachSan.Models
                 new ObjectParameter("email", email) :
                 new ObjectParameter("email", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ThemKhachHang", maKHParameter, hoTenParameter, tenDangNhapParameter, matKhauParameter, soCMNDParameter, diaChiParameter, soDienThoaiParameter, moTaParameter, emailParameter);
-        }
-    
-        public virtual int ThongKeDTNgay(Nullable<System.DateTime> ngay)
-        {
-            var ngayParameter = ngay.HasValue ?
-                new ObjectParameter("ngay", ngay) :
-                new ObjectParameter("ngay", typeof(System.DateTime));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ThongKeDTNgay", ngayParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ThemKhachHang", hoTenParameter, tenDangNhapParameter, matKhauParameter, soCMNDParameter, diaChiParameter, soDienThoaiParameter, moTaParameter, emailParameter);
         }
     
         public virtual ObjectResult<TimKiemGiaVaThanhPho_Result> TimKiemGiaVaThanhPho(Nullable<decimal> gia, string thanhPho)
@@ -224,17 +107,30 @@ namespace QuanLyKhachSan.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<TimKiemSaoVaThanhPho_Result>("TimKiemSaoVaThanhPho", saoParameter, thanhPhoParameter);
         }
     
-        public virtual ObjectResult<TrangThaiPhongTheoNgay_Result> TrangThaiPhongTheoNgay(string maLoaiPhong, Nullable<System.DateTime> date)
+        public virtual ObjectResult<TrangThaiPhongTheoNgay_Result> TrangThaiPhongTheoNgay(Nullable<int> maLoaiPhong, Nullable<System.DateTime> date)
         {
-            var maLoaiPhongParameter = maLoaiPhong != null ?
+            var maLoaiPhongParameter = maLoaiPhong.HasValue ?
                 new ObjectParameter("maLoaiPhong", maLoaiPhong) :
-                new ObjectParameter("maLoaiPhong", typeof(string));
+                new ObjectParameter("maLoaiPhong", typeof(int));
     
             var dateParameter = date.HasValue ?
                 new ObjectParameter("date", date) :
                 new ObjectParameter("date", typeof(System.DateTime));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<TrangThaiPhongTheoNgay_Result>("TrangThaiPhongTheoNgay", maLoaiPhongParameter, dateParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> TrangThaiPhongDaDatTheoNgay(Nullable<int> maLoaiPhong, Nullable<System.DateTime> date)
+        {
+            var maLoaiPhongParameter = maLoaiPhong.HasValue ?
+                new ObjectParameter("maLoaiPhong", maLoaiPhong) :
+                new ObjectParameter("maLoaiPhong", typeof(int));
+    
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("date", date) :
+                new ObjectParameter("date", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("TrangThaiPhongDaDatTheoNgay", maLoaiPhongParameter, dateParameter);
         }
     }
 }

@@ -177,7 +177,6 @@
     <Compile Include="Models\LOAIPHONG.cs">
       <DependentUpon>QuanLyKhachSanModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\KhachHangVM.cs" />
     <Compile Include="Models\PHONG.cs">
       <DependentUpon>QuanLyKhachSanModel.tt</DependentUpon>
     </Compile>
@@ -196,15 +195,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>QuanLyKhachSanModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>QuanLyKhachSanModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_helpdiagrams_Result.cs">
-      <DependentUpon>QuanLyKhachSanModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>QuanLyKhachSanModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\TimKiemGiaVaThanhPho_Result.cs">
       <DependentUpon>QuanLyKhachSanModel.tt</DependentUpon>
     </Compile>
@@ -217,6 +207,7 @@
     <Compile Include="Models\TrangThaiPhongTheoNgay_Result.cs">
       <DependentUpon>QuanLyKhachSanModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\KhachHangVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\DatPhong.cs" />
     <Compile Include="ViewModels\Hotel.cs" />

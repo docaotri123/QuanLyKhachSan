@@ -7,8 +7,9 @@
     ViewBag.Title = "BookRoom";
     var Hotel = ViewBag.Hotel;
     IEnumerable<LoaiPhong> listLoaiPhong = ViewBag.listLoaiPhong;
-    string maKS = Hotel.MaKS;
-    string selectedValue = ViewBag.maLoaiPhong;
+    int? maKS = Hotel.MaKS;
+    int? maLoaiPhong = ViewBag.maLoaiPhong;
+    string selectedValue = maLoaiPhong.ToString();
     string ngayDatPhong = ViewBag.ngayDatPhong;
 
 }

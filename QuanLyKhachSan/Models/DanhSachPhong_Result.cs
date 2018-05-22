@@ -13,7 +13,7 @@ namespace QuanLyKhachSan.Models
     
     public partial class DanhSachPhong_Result
     {
-        public string MaPhong { get; set; }
+        public int MaPhong { get; set; }
         public Nullable<int> SoPhong { get; set; }
     }
 }

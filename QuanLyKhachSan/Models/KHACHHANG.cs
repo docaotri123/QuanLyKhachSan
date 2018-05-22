@@ -20,7 +20,7 @@ namespace QuanLyKhachSan.Models
             this.DATPHONGs = new HashSet<DATPHONG>();
         }
     
-        public string MaKH { get; set; }
+        public int MaKH { get; set; }
         public string HoTen { get; set; }
         public string TenDangNhap { get; set; }
         public string MatKhau { get; set; }

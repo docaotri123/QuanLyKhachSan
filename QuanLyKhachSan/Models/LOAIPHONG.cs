@@ -20,9 +20,9 @@ namespace QuanLyKhachSan.Models
             this.PHONGs = new HashSet<PHONG>();
         }
     
-        public string MaLoaiPhong { get; set; }
+        public int MaLoaiPhong { get; set; }
         public string TenLoaiPhong { get; set; }
-        public string MaKS { get; set; }
+        public Nullable<int> MaKS { get; set; }
         public Nullable<decimal> DonGia { get; set; }
         public string MoTa { get; set; }
         public Nullable<int> SlotTrong { get; set; }

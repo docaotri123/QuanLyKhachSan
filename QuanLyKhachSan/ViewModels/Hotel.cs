@@ -7,7 +7,7 @@ namespace QuanLyKhachSan.ViewModels
 {
     public class Hotel
     {
-        public string MaKS { get; set; }
+        public int? MaKS { get; set; }
         public string TenKS { get; set; }
         public Nullable<int> SoSao { get; set; }
         public Nullable<int> SoNha { get; set; }
@@ -18,7 +18,7 @@ namespace QuanLyKhachSan.ViewModels
         public string MoTa { get; set; }
      
 
-        public Hotel(string maKS, string tenKS, int? soSao, int? soNha, string quan, string thanhPho, decimal? giaTB, string moTa)
+        public Hotel(int? maKS, string tenKS, int? soSao, int? soNha, string quan, string thanhPho, decimal? giaTB, string moTa)
         {
             MaKS = maKS;
             TenKS = tenKS;

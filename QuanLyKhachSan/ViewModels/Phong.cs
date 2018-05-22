@@ -16,9 +16,9 @@ namespace QuanLyKhachSan.ViewModels
             this.soPhong = soPhong;
         }
 
-        public string maPhong { get; set; }
-        public string maLoaiPhong { get; set; }
-        public string maKS { get; set; }
+        public int? maPhong { get; set; }
+        public int? maLoaiPhong { get; set; }
+        public int? maKS { get; set; }
 
         public int? soPhong { get; set; }
         public string stage { get; set; }

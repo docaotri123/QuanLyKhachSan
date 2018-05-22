@@ -50,60 +50,43 @@ namespace QuanLyKhachSan.Dropdownlist
             return result1;
         }
 
-        public static IEnumerable<SelectListItem> GetCities(string selectedValue = "hcm")
+        public static IEnumerable<SelectListItem> GetCities(string selectedValue = "")
         {
-            var result = new List<SelectListItem>()
+            using (var db = new QuanLyKhachSanEntities())
             {
-                new SelectListItem()
+                var cities = new List<SelectListItem>();
+                var kq = db.KHACHSANs.Select(x => new { x.ThanhPho }).GroupBy(x => x.ThanhPho).ToList();
+                foreach(var item in kq)
                 {
-                   Text = "HCM",
-                   Value="hcm",
-                   Selected =  selectedValue.Equals("hcm")
-                },
-                 new SelectListItem()
-                {
-                   Text = "Hà Nội",
-                   Value="hn",
-                   Selected =  selectedValue.Equals("hn")
-                },
-                 new SelectListItem()
-                {
-                   Text = "Đà Nẵng",
-                   Value="Đà Nẵng",
-                   Selected =  selectedValue.Equals("Đà Nẵng")
-                },
-                 new SelectListItem()
-                {
-                   Text = "Vũng Tàu",
-                   Value="Vũng Tàu",
-                   Selected =  selectedValue.Equals("Vũng Tàu")
-                },
-                 new SelectListItem()
-                {
-                   Text = "Tây Ninh",
-                   Value="Tây Ninh",
-                   Selected =  selectedValue.Equals("Tây Ninh")
+                    var city = new SelectListItem()
+                    {
+                        Text = item.Key,
+                        Value = item.Key,
+                        Selected = !string.IsNullOrEmpty(selectedValue) ? selectedValue.Equals(item.Key) : false
+                    };
+                    if (item.Key != null)
+                        cities.Add(city);
                 }
-            };
 
+                return cities;
+            }
 
-            return result;
         }
 
-        public static IEnumerable<SelectListItem> GetTyleRoom(string maKS = "", string selectedValue = "")
+        public static IEnumerable<SelectListItem> GetTyleRoom(int? maKS = null, string selectedValue = "")
         {
             using (var db = new QuanLyKhachSanEntities())
             {
                 var rooms = new List<SelectListItem>();
 
-                var kq = db.LOAIPHONGs.Where(m => m.MaKS.Equals(maKS)).ToList();
+                var kq = db.LOAIPHONGs.Where(m => m.MaKS==maKS).ToList();
 
                 foreach (var item in kq)
                 {
                     var x = new SelectListItem()
                     {
-                        Text = item.TenLoaiPhong,
-                        Value = item.MaLoaiPhong,
+                        Text = item.MaLoaiPhong.ToString(),
+                        Value = item.MaLoaiPhong.ToString(),
                         Selected = !string.IsNullOrEmpty(selectedValue) ? selectedValue.Equals(item.MaLoaiPhong) : false
                     };
 

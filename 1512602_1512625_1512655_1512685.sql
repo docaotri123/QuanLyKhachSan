@@ -1,7 +1,7 @@
 
 create table KHACHHANG
 (
-	MaKH varchar(10) primary key,
+	MaKH INT IDENTITY primary key,
 	HoTen nvarchar(30),
 	TenDangNhap varchar(30),
 	MatKhau varchar(30),
@@ -17,7 +17,7 @@ create index ID_SoCMND ON KHACHHANG(SoCMND);
 
 create table KHACHSAN
 (
-	MaKS varchar(10) primary key,
+	MaKS INT IDENTITY primary key,
 	TenKS nvarchar(30),
 	SoSao int,
 	SoNha int,
@@ -34,13 +34,12 @@ create index ID_ThanhPho ON KHACHSAN(ThanhPho);
 
 create table LOAIPHONG
 (
-	MaLoaiPhong varchar(10) ,
+	MaLoaiPhong INT IDENTITY primary key,
 	TenLoaiPhong nvarchar(30),
-	MaKS varchar(10),
+	MaKS INT,
 	DonGia money,
 	MoTa nvarchar(300),
 	SlotTrong int,
-	primary key(MaLoaiPhong),
 	FOREIGN KEY (MaKS) REFERENCES KHACHSAN(MaKS)
 )
 
@@ -49,8 +48,8 @@ create index ID_MaKS_DonGia ON LOAIPHONG(MaKS,DonGia);
 
 create table PHONG 
 (
-	MaPhong varchar(10) primary key,
-	LoaiPhong varchar(10),
+	MaPhong INT IDENTITY primary key,
+	LoaiPhong INT,
 	SoPhong int,
 	FOREIGN KEY (LoaiPhong) REFERENCES LOAIPHONG(MaLoaiPhong)
 )
@@ -59,10 +58,9 @@ create index ID_LoaiPhong ON PHONG(LoaiPhong);
 
 create table TRANGTHAIPHONG
 (
-	MaPhong varchar(10) ,
+	MaPhong INT IDENTITY PRIMARY KEY,
 	Ngay date,
 	TinhTrang NVARCHAR(20),
-	PRIMARY KEY(MaPhong,Ngay),
 	FOREIGN KEY (MaPhong) REFERENCES PHONG(MaPhong)
 )
 
@@ -70,9 +68,9 @@ create index ID_MaPhong ON TRANGTHAIPHONG(MaPhong);
 
 create table DATPHONG
 (
-	MaDP varchar(10) primary key,
-	MaPhong varchar(10),
-	MaKH varchar(10),
+	MaDP INT IDENTITY primary key,
+	MaPhong INT,
+	MaKH INT,
 	NgayBatDau date,
 	NgayTraPhong date,
 	NgayDat date,
@@ -88,10 +86,10 @@ create index ID_MaKH ON DATPHONG(MaKH);
 
 create table HOADON
 (
-	MaHD varchar(10) primary key,
+	MaHD INT IDENTITY primary key,
 	NgayThanhToan date,
 	TongTien money,
-	MaDP varchar(10),
+	MaDP INT,
 	FOREIGN KEY (MaDP) REFERENCES DATPHONG(MaDP)
 )
 

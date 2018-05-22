@@ -14,8 +14,8 @@ namespace QuanLyKhachSan.Models
     
     public partial class TRANGTHAIPHONG
     {
-        public string MaPhong { get; set; }
-        public System.DateTime Ngay { get; set; }
+        public int MaPhong { get; set; }
+        public Nullable<System.DateTime> Ngay { get; set; }
         public string TinhTrang { get; set; }
     
         public virtual PHONG PHONG { get; set; }

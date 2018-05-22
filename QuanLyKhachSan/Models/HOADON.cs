@@ -14,10 +14,10 @@ namespace QuanLyKhachSan.Models
     
     public partial class HOADON
     {
-        public string MaHD { get; set; }
+        public int MaHD { get; set; }
         public Nullable<System.DateTime> NgayThanhToan { get; set; }
         public Nullable<decimal> TongTien { get; set; }
-        public string MaDP { get; set; }
+        public Nullable<int> MaDP { get; set; }
     
         public virtual DATPHONG DATPHONG { get; set; }
     }

@@ -15,7 +15,7 @@ namespace QuanLyKhachSan.Controllers
 
         // GET: BookRoom
         [HttpGet]
-        public ActionResult DetailRoom(string maKS,string maLoaiPhong,DatPhong dp,string ngayBatDau)
+        public ActionResult DetailRoom(int? maKS,int? maLoaiPhong,DatPhong dp,string ngayBatDau)
         {
             //Check Login
             var user = Session["loginSuccess"] as UserName;
@@ -23,9 +23,9 @@ namespace QuanLyKhachSan.Controllers
             if(user!=null)
                 ViewBag.User = user.maKH;
             //Tìm Hotel 
-            var dbhotel = db.KHACHSANs.SingleOrDefault(m => m.MaKS.Equals(maKS));
+            var dbhotel = db.KHACHSANs.SingleOrDefault(m => m.MaKS==maKS);
             //List rooms of this Hotel
-            var dblistloaiPhong = db.LOAIPHONGs.Where(m => m.MaKS.Equals(maKS)).ToList();
+            var dblistloaiPhong = db.LOAIPHONGs.Where(m => m.MaKS==maKS).ToList();
 
             Hotel hotel = new Hotel(dbhotel.MaKS, dbhotel.TenKS, dbhotel.SoSao, dbhotel.SoNha, dbhotel.Quan, dbhotel.ThanhPho, dbhotel.GiaTB, dbhotel.MoTa);
 
@@ -43,47 +43,57 @@ namespace QuanLyKhachSan.Controllers
             //Get this day
 
             DateTime thisDay = DateTime.Today;
+            DateTime ngayDat = DateTime.Today;
+
+            if (ngayBatDau != null)
+            {
+                String[] sub = ngayBatDau.Split('-');
+                ngayDat = new DateTime(int.Parse(sub[0]), int.Parse(sub[1]), int.Parse(sub[2]));
+            }
+
             string this_day = thisDay.ToString("yyyy-MM-dd");
 
             ViewBag.thisday = this_day;
             ViewBag.ngayDatPhong = ngayBatDau;
-            if (maLoaiPhong != "" && maLoaiPhong !=null)
+            if (maLoaiPhong !=null)
             {
                 //GEt listPhong
                 var dblstPhong = db.DanhSachPhong(maLoaiPhong).ToList().OrderBy(m=>m.SoPhong);
                 List<Phong> listPhong = new List<Phong>();
                 //Lay tình trạng phòng
 
-                var dbStage = db.TrangThaiPhongTheoNgay(maLoaiPhong, thisDay).ToList().OrderBy(m=>m.SoPhong);
+                var dbStage = db.TrangThaiPhongDaDatTheoNgay(maLoaiPhong, ngayDat).ToList().OrderBy(m=>m.Value);
                 List<int?> trangThaiPhong = new List<int?>();
-                List<int?> soPhong = new List<int?>();
+                List<int?> maPhong = new List<int?>();
                 int[] a = new int[dblstPhong.Count()];
                 int i = 0, j = 0;
                 //Mục dích trả về kiểu list cho dễ tính toán
                 foreach (var item in dbStage)
                 {
-                    trangThaiPhong.Add(item.SoPhong);
+                    trangThaiPhong.Add(item.Value);
                     i++;
                 }
                 i = 0;
                 foreach (var item in dblstPhong)
                 {
-                    soPhong.Add(item.SoPhong);
+                    maPhong.Add(item.MaPhong);
                     i++;
                 }
                 i = 0;
+                int ck;
                 //Ghi lại trạng thái phong dã đặt
-                for (; i < trangThaiPhong.Count(); i++)
+                for (; i < maPhong.Count(); i++)
                 {
-                    for (; j < dblstPhong.Count(); j++)
-                    {
-                        a[i] = 0;
-                        if (trangThaiPhong[i] == soPhong[j])
+                    a[i] = 0;
+                    for (; j < trangThaiPhong.Count(); j++)
+                    {                 
+                        if (maPhong[i] == trangThaiPhong[j])
                         {
                             a[i] = 1;
                             break;
                         }
                     }
+                    j = 0;
                 }
 
 
@@ -102,7 +112,7 @@ namespace QuanLyKhachSan.Controllers
                     {
                         x.stage = "còn trống";
                     }
-                   
+                    i++;
                     listPhong.Add(x);
                 }
 
@@ -111,7 +121,7 @@ namespace QuanLyKhachSan.Controllers
 
 
 
-                if (dp.maPhong != null && dp.maPhong != "")
+                if (dp.maPhong != null)
                 {
                     if(DateTime.Compare(dp.ngayBatDau,dp.ngayTraPhong)<=0)
                     {

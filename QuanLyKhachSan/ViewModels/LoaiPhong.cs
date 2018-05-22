@@ -7,15 +7,15 @@ namespace QuanLyKhachSan.ViewModels
 {
     public class LoaiPhong
     {
-        public LoaiPhong(string maLoaiPhong, string tenLoaiPhong, string maKS)
+        public LoaiPhong(int? maLoaiPhong, string tenLoaiPhong, int? maKS)
         {
             MaLoaiPhong = maLoaiPhong;
             TenLoaiPhong = tenLoaiPhong;
             MaKS = maKS;
         }
 
-        public string MaLoaiPhong { get; set; }
+        public int? MaLoaiPhong { get; set; }
         public string TenLoaiPhong { get; set; }
-        public string MaKS { get; set; }
+        public int? MaKS { get; set; }
     }
 }

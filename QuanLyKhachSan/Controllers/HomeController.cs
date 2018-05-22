@@ -50,7 +50,7 @@ namespace QuanLyKhachSan.Controllers
             {
                 var ck = 0;
                 var maKH = RandomString();
-                ck = db.ThemKhachHang(maKH, kh.HoTen, kh.TenDangNhap, kh.MatKhau, kh.SoCMND, kh.DiaChi, kh.SoDienThoai, kh.MoTa, kh.Email);
+                ck = db.ThemKhachHang(kh.HoTen, kh.TenDangNhap, kh.MatKhau, kh.SoCMND, kh.DiaChi, kh.SoDienThoai, kh.MoTa, kh.Email);
                 if (ck == -1)
                 {
                     ViewBag.ThongBao = "Đăng ký thất bại";

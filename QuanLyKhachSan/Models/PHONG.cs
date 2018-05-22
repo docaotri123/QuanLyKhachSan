@@ -18,17 +18,15 @@ namespace QuanLyKhachSan.Models
         public PHONG()
         {
             this.DATPHONGs = new HashSet<DATPHONG>();
-            this.TRANGTHAIPHONGs = new HashSet<TRANGTHAIPHONG>();
         }
     
-        public string MaPhong { get; set; }
-        public string LoaiPhong { get; set; }
+        public int MaPhong { get; set; }
+        public Nullable<int> LoaiPhong { get; set; }
         public Nullable<int> SoPhong { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DATPHONG> DATPHONGs { get; set; }
         public virtual LOAIPHONG LOAIPHONG1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TRANGTHAIPHONG> TRANGTHAIPHONGs { get; set; }
+        public virtual TRANGTHAIPHONG TRANGTHAIPHONG { get; set; }
     }
 }

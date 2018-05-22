@@ -4,14 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="fcdbb08cb8584203a0a2f6ca43182b0e" Name="Diagram1">
+      <Diagram DiagramId="149fc9f4a29841df81b90768cfe5483d" Name="Diagram1">
         <EntityTypeShape EntityType="QuanLyKhachSanModel.DATPHONG" Width="1.5" PointX="7.5" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="QuanLyKhachSanModel.HOADON" Width="1.5" PointX="9.75" PointY="5.25" IsExpanded="true" />
         <EntityTypeShape EntityType="QuanLyKhachSanModel.KHACHHANG" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="QuanLyKhachSanModel.KHACHSAN" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="QuanLyKhachSanModel.LOAIPHONG" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="QuanLyKhachSanModel.PHONG" Width="1.5" PointX="5.25" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyKhachSanModel.sysdiagram" Width="1.5" PointX="0.75" PointY="8.875" IsExpanded="true" />
         <EntityTypeShape EntityType="QuanLyKhachSanModel.TRANGTHAIPHONG" Width="1.5" PointX="7.5" PointY="9.375" IsExpanded="true" />
         <AssociationConnector Association="QuanLyKhachSanModel.FK__DATPHONG__MaKH__1DE57479" ManuallyRouted="false" />
         <AssociationConnector Association="QuanLyKhachSanModel.FK__DATPHONG__MaPhon__1CF15040" ManuallyRouted="false" />

@@ -7,9 +7,9 @@ namespace QuanLyKhachSan.ViewModels
 {
     public class DatPhong
     {
-        public string maDP { get; set; }
-        public string maKH { get; set; }
-        public string maPhong { get; set; }
+        public int? maDP { get; set; }
+        public int? maKH { get; set; }
+        public int? maPhong { get; set; }
         public DateTime ngayBatDau { get; set; }
         public DateTime ngayTraPhong { get; set; }
         public DateTime ngayDat { get; set; }

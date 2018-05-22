@@ -14,7 +14,6 @@ DECLARE @kq MONEY
 ----PROC Them Khách Hàng
 
 CREATE PROC ThemKhachHang 
-@maKH VARCHAR(10),
 @hoTen NVARCHAR(30),
 @tenDangNhap VARCHAR(30),
 @matKhau varchar(30),
@@ -24,17 +23,9 @@ CREATE PROC ThemKhachHang
 @moTa NVARCHAR(200),
 @email VARCHAR(50)
  AS
-	--Check xem mot KhachHang ton tai hay chua
-	DECLARE @ck VARCHAR(10)
-	SET @ck='x'
-	SET @ck=(SELECT KH.MaKH FROM dbo.KHACHHANG KH WHERE KH.MaKH=@maKH)
-	IF(@ck=@maKH)
-		RETURN -1
-	ELSE
-		BEGIN
+	BEGIN
 			INSERT INTO dbo.KHACHHANG
 			(
-			    MaKH,
 			    HoTen,
 			    TenDangNhap,
 			    MatKhau,
@@ -46,7 +37,6 @@ CREATE PROC ThemKhachHang
 			)
 			VALUES
 			(
-				@maKH,
 				@hoTen,
 				@tenDangNhap,
 				@matKhau,
@@ -60,7 +50,7 @@ CREATE PROC ThemKhachHang
 		END
  GO
  DECLARE @test INT
- EXEC @test=ThemKhachHang 'aBc56ok','?? Trí','docaotri','123456','291155458','Tay Ninh','19001560',N'Vui tính','dctri211997@gmail.com'
+ EXEC @test=ThemKhachHang 'Trí','docaotri','123456','291155458','Tay Ninh','19001560',N'Vui tính','dctri211997@gmail.com'
  IF (@test=-1)
 	PRINT 'THem That Bai'
 ELSE
@@ -93,7 +83,7 @@ EXEC @ck=Signin 'TriDo113','123456'
 PRINT @ck
 
 --PROC DanhSachPhong
-ALTER PROC DanhSachPhong @maLoaiPhong VARCHAR(30)
+ALTER PROC DanhSachPhong @maLoaiPhong INT
 AS
 	SELECT p.MaPhong,p.SoPhong FROM dbo.PHONG p INNER JOIN dbo.LOAIPHONG lp ON p.LoaiPhong=lp.MaLoaiPhong AND lp.MaLoaiPhong= @maLoaiPhong
 GO
@@ -101,14 +91,14 @@ GO
 EXEC DanhSachPhong '007LUS'
 
 --PROC TinhTrangPhongTheoNgay
-CREATE PROC TrangThaiPhongTheoNgay @maLoaiPhong VARCHAR(30),@date DATE
+CREATE PROC TrangThaiPhongTheoNgay @maLoaiPhong INT,@date DATE
 AS
 		SELECT p.SoPhong,ttp.TinhTrang FROM dbo.TRANGTHAIPHONG ttp RIGHT JOIN dbo.PHONG p ON ttp.MaPhong=p.MaPhong INNER JOIN
 	dbo.LOAIPHONG lp ON p.LoaiPhong=lp.MaLoaiPhong AND lp.MaLoaiPhong=@maLoaiPhong AND ttp.Ngay=@date
 	GROUP BY p.SoPhong,ttp.TinhTrang
 GO
 
-EXEC TrangThaiPhongTheoNgay '0P9J6EHG9D','2018-04-16'
+EXEC TrangThaiPhongTheoNgay 1,'2018-04-16'
 --PROC đặt phòng khách sạn
 create proc DatPhongKhachSan  @MaDP varchar(10),@MaPhong varchar(10),@MaKH varchar(10), @NgayBatDau date,@NgayKetThuc date,@DonGia money,@Mota nvarchar(100), @TinhTrang nvarchar(50)
 as

@@ -20,9 +20,9 @@ namespace QuanLyKhachSan.Models
             this.HOADONs = new HashSet<HOADON>();
         }
     
-        public string MaDP { get; set; }
-        public string MaPhong { get; set; }
-        public string MaKH { get; set; }
+        public int MaDP { get; set; }
+        public Nullable<int> MaPhong { get; set; }
+        public Nullable<int> MaKH { get; set; }
         public Nullable<System.DateTime> NgayBatDau { get; set; }
         public Nullable<System.DateTime> NgayTraPhong { get; set; }
         public Nullable<System.DateTime> NgayDat { get; set; }

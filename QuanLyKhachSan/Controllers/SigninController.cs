@@ -28,6 +28,7 @@ namespace QuanLyKhachSan.Controllers
             {
                 user.maKH = ck.MaKH;
                 user.nameKH = ck.HoTen;
+                user.style = (int)ck.Style;
                 Session["loginSuccess"] = user;
                 ViewBag.User = user.userName;
                 return RedirectToAction("Detail", "User");

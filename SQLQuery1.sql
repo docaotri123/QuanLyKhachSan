@@ -115,6 +115,18 @@ begin
 		end
 	end
 END
+--PROC TrangThaiPhongDaDatTheoNgay
+CREATE PROC TrangThaiPhongDaDatTheoNgay @maLoaiPhong INT,@date DATE
+AS
+	SELECT ttp.MaPhong
+	FROM dbo.TRANGTHAIPHONG ttp RIGHT JOIN dbo.PHONG p ON ttp.MaPhong=p.MaPhong
+	RIGHT JOIN dbo.LOAIPHONG lp ON lp.MaLoaiPhong=p.LoaiPhong
+	WHERE lp.MaLoaiPhong=@maLoaiPhong AND ttp.Ngay=@date AND( ttp.TinhTrang=N'đang sử dụng'
+	OR ttp.TinhTrang=N'đang bảo trì')
+	GROUP BY ttp.MaPhong
+GO
+
+EXEC TrangThaiPhongDaDatTheoNgay 114,'2015-04-27'
 
 
 

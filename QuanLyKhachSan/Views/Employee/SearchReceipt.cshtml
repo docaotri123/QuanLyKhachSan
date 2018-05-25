@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "SearchReceipt";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var list = ViewBag.list;
+    string date = ViewBag.date;
+}
+
+@using (Html.BeginForm("SearchReceipt", "Employee", FormMethod.Get))
+{
+    <p>@date</p>
+    <table>
+        <tbody>
+            <tr>
+                <th style="width:100px">Mã Khách Hàng</th>
+                <th style="width:200px"><input class="form-control input-lg" id="inputlg" type="text" name="maKH" value=@ViewBag.maKH></th>
+                <th style="width:150px;text-align:right;text-align:center">Ngày Lập HD</th>
+                <th style="width:150px">
+                    <input type="date" id="book_Date" value=@date class="form-control" name="date">
+                </th>
+                <th style="width:200px; padding-left: 15px">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-search-plus"></i> Tìm kiếm
+                    </button>
+                </th>
+            </tr>
+        </tbody>
+    </table>
+}
+
+@if (list != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Mã khách hàng</th>
+                <th scope="col">Ngày thanh toán</th>
+                <th scope="col">Tổng tiền</th>
+                <th scope="col">Mã đặt phòng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in list)
+            {
+                <tr>
+                    <th scope="row">@item.MaKH</th>
+                    <td>@item.NgayThanhToan.ToString("dd-MM-yyyy")</td>
+                    <td>@item.TongTien</td>
+                    <td>@item.MaDP</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+

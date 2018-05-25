@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "ScanfIDBookRoom";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var datphong = ViewBag.DatPhong;
+}
+<h3>@ViewBag.ThongBao</h3>
+<br />
+@using (Html.BeginForm("ScanfIDBookRoom", "Employee", FormMethod.Get))
+{
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Nhập mã đặt phòng" aria-label="Recipient's username"
+               aria-describedby="basic-addon2" name="maDP" value=@ViewBag.maDP>
+        <hr />
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="submit">Search</button>
+        </div>
+    </div>
+}
+
+@if (datphong != null)
+{
+    <table class="table table-hover table-dark">
+        <thead>
+            <tr>
+                <th scope="col">Mã Khách Hàng</th>
+                <th scope="col">Mã Đặt Phòng</th>
+                <th scope="col">Mã Phòng</th>
+                <th scope="col">Tổng Tiền</th>
+                <th scope="col">Ngày Bắt Đầu</th>
+                <th scope="col">Ngày Kết Thúc</th>
+                <th scope="col">Thanh Toán</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">@datphong.MaKH</th>
+                <td>@datphong.MaDP</td>
+                <td>@datphong.MaPhong</td>
+                <td>@datphong.DonGia</td>
+                <td>@datphong.NgayBatDau.ToString("dd-MM-yyyy")</td>
+                <td>@datphong.NgayTraPhong.ToString("dd-MM-yyyy")</td>
+                @using (Html.BeginForm("ScanfIDBookRoom", "Employee", FormMethod.Post))
+                {
+                    <td>
+                        <input hidden value=@datphong.MaDP name="maDP"/>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-plus-circle"></i> Thanh Toán
+                        </button>
+                    </td>
+                }
+            </tr>
+        </tbody>
+    </table>
+}
+

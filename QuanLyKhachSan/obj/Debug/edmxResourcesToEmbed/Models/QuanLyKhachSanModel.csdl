@@ -41,6 +41,7 @@
     <Property Name="MoTa" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="DATPHONGs" Relationship="Self.FK__DATPHONG__MaKH__1DE57479" FromRole="KHACHHANG" ToRole="DATPHONG" />
+    <Property Name="Style" Type="Int32" />
   </EntityType>
   <EntityType Name="KHACHSAN">
     <Key>
@@ -79,14 +80,15 @@
     <Property Name="SoPhong" Type="Int32" />
     <NavigationProperty Name="DATPHONGs" Relationship="Self.FK__DATPHONG__MaPhon__1CF15040" FromRole="PHONG" ToRole="DATPHONG" />
     <NavigationProperty Name="LOAIPHONG1" Relationship="Self.FK__PHONG__LoaiPhong__173876EA" FromRole="PHONG" ToRole="LOAIPHONG" />
-    <NavigationProperty Name="TRANGTHAIPHONG" Relationship="Self.FK__TRANGTHAI__MaPho__1A14E395" FromRole="PHONG" ToRole="TRANGTHAIPHONG" />
+    <NavigationProperty Name="TRANGTHAIPHONGs" Relationship="Self.FK__TRANGTHAI__MaPho__1A14E395" FromRole="PHONG" ToRole="TRANGTHAIPHONG" />
   </EntityType>
   <EntityType Name="TRANGTHAIPHONG">
     <Key>
       <PropertyRef Name="MaPhong" />
+      <PropertyRef Name="Ngay" />
     </Key>
-    <Property Name="MaPhong" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Ngay" Type="DateTime" Precision="0" />
+    <Property Name="MaPhong" Type="Int32" Nullable="false" />
+    <Property Name="Ngay" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="TinhTrang" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="PHONG" Relationship="Self.FK__TRANGTHAI__MaPho__1A14E395" FromRole="TRANGTHAIPHONG" ToRole="PHONG" />
   </EntityType>
@@ -152,7 +154,7 @@
   </Association>
   <Association Name="FK__TRANGTHAI__MaPho__1A14E395">
     <End Role="PHONG" Type="Self.PHONG" Multiplicity="1" />
-    <End Role="TRANGTHAIPHONG" Type="Self.TRANGTHAIPHONG" Multiplicity="0..1" />
+    <End Role="TRANGTHAIPHONG" Type="Self.TRANGTHAIPHONG" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="PHONG">
         <PropertyRef Name="MaPhong" />
@@ -223,6 +225,13 @@
       <Parameter Name="maLoaiPhong" Mode="In" Type="Int32" />
       <Parameter Name="date" Mode="In" Type="DateTime" />
     </FunctionImport>
+    <FunctionImport Name="SeachReceipt_MaKH" ReturnType="Collection(QuanLyKhachSanModel.SeachReceipt_MaKH_Result)">
+      <Parameter Name="maKH" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SeachReceipt_MaKH_Date" ReturnType="Collection(QuanLyKhachSanModel.SeachReceipt_MaKH_Date_Result)">
+      <Parameter Name="maKH" Mode="In" Type="Int32" />
+      <Parameter Name="date" Mode="In" Type="DateTime" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="DanhSachPhong_Result">
     <Property Type="Int32" Name="MaPhong" Nullable="false" />
@@ -253,5 +262,17 @@
   <ComplexType Name="TrangThaiPhongTheoNgay_Result">
     <Property Type="Int32" Name="SoPhong" Nullable="true" />
     <Property Type="String" Name="TinhTrang" Nullable="true" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="SeachReceipt_MaKH_Result">
+    <Property Type="Int32" Name="MaKH" Nullable="true" />
+    <Property Type="DateTime" Name="NgayThanhToan" Nullable="true" />
+    <Property Type="Decimal" Name="TongTien" Nullable="true" Precision="19" />
+    <Property Type="Int32" Name="MaDP" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="SeachReceipt_MaKH_Date_Result">
+    <Property Type="Int32" Name="MaKH" Nullable="true" />
+    <Property Type="DateTime" Name="NgayThanhToan" Nullable="true" />
+    <Property Type="Decimal" Name="TongTien" Nullable="true" Precision="19" />
+    <Property Type="Int32" Name="MaDP" Nullable="true" />
   </ComplexType>
 </Schema>

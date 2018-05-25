@@ -151,6 +151,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BookRoomController.cs" />
+    <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\SigninController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TimKiemKSController.cs" />
@@ -194,6 +195,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>QuanLyKhachSanModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SeachReceipt_MaKH_Date_Result.cs">
+      <DependentUpon>QuanLyKhachSanModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SeachReceipt_MaKH_Result.cs">
+      <DependentUpon>QuanLyKhachSanModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TimKiemGiaVaThanhPho_Result.cs">
       <DependentUpon>QuanLyKhachSanModel.tt</DependentUpon>
@@ -275,6 +282,9 @@
     <Content Include="Views\Signin\Signin.cshtml" />
     <Content Include="Views\User\Detail.cshtml" />
     <Content Include="Views\BookRoom\DetailRoom.cshtml" />
+    <Content Include="Views\User\DetailCart.cshtml" />
+    <Content Include="Views\Employee\ScanfIDBookRoom.cshtml" />
+    <Content Include="Views\Employee\SearchReceipt.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Detail-Cart";
+    var list = ViewBag.Cart;
+}
+
+@if (list != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="width:100px">Mã ĐP</th>
+                <th style="width:100px">Mã Phòng</th>
+                <th style="width:100px">Mã Khách Hàng</th>
+                <th style="width:100px">Ngày Đặt</th>
+                <th style="width:100px">Ngày Bắt Đầu</th>
+                <th style="width:100px">Ngày Kết Thúc</th>
+                <th style="width:100px">Đơn Giá</th>
+                <th style="width:100px">Tình Trạng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in list)
+            {
+            <tr>
+                <td>@item.MaDP</td>
+                <td>@item.MaPhong</td>
+                <td>@item.MaKH</td>
+                <td>@item.NgayDat.ToString("dd-MM-yyyy")</td>
+                <td>@item.NgayBatDau.ToString("dd-MM-yyyy")</td>
+                <td>@item.NgayTraPhong.ToString("dd-MM-yyyy")</td>
+                <td>@item.DonGia</td>
+                <td>@item.TinhTrang</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}

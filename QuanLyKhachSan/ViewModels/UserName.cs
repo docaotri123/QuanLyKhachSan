@@ -11,6 +11,7 @@ namespace QuanLyKhachSan.ViewModels
         public string nameKH { get; set; }
         public string userName { get; set; }
         public string password { get; set; }
+        public int style { get; set; }
       
     }
 }

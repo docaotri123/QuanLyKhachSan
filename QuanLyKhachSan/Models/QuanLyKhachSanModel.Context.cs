@@ -132,5 +132,27 @@ namespace QuanLyKhachSan.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("TrangThaiPhongDaDatTheoNgay", maLoaiPhongParameter, dateParameter);
         }
+    
+        public virtual ObjectResult<SeachReceipt_MaKH_Result> SeachReceipt_MaKH(Nullable<int> maKH)
+        {
+            var maKHParameter = maKH.HasValue ?
+                new ObjectParameter("maKH", maKH) :
+                new ObjectParameter("maKH", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SeachReceipt_MaKH_Result>("SeachReceipt_MaKH", maKHParameter);
+        }
+    
+        public virtual ObjectResult<SeachReceipt_MaKH_Date_Result> SeachReceipt_MaKH_Date(Nullable<int> maKH, Nullable<System.DateTime> date)
+        {
+            var maKHParameter = maKH.HasValue ?
+                new ObjectParameter("maKH", maKH) :
+                new ObjectParameter("maKH", typeof(int));
+    
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("date", date) :
+                new ObjectParameter("date", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SeachReceipt_MaKH_Date_Result>("SeachReceipt_MaKH_Date", maKHParameter, dateParameter);
+        }
     }
 }

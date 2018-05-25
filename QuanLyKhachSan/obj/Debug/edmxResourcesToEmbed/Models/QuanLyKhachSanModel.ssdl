@@ -36,6 +36,7 @@
     <Property Name="SoDienThoai" Type="varchar" MaxLength="20" />
     <Property Name="MoTa" Type="nvarchar" MaxLength="200" />
     <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="Style" Type="int" />
   </EntityType>
   <EntityType Name="KHACHSAN">
     <Key>
@@ -73,9 +74,10 @@
   <EntityType Name="TRANGTHAIPHONG">
     <Key>
       <PropertyRef Name="MaPhong" />
+      <PropertyRef Name="Ngay" />
     </Key>
-    <Property Name="MaPhong" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Ngay" Type="date" />
+    <Property Name="MaPhong" Type="int" Nullable="false" />
+    <Property Name="Ngay" Type="date" Nullable="false" />
     <Property Name="TinhTrang" Type="nvarchar" MaxLength="20" />
   </EntityType>
   <Association Name="FK__DATPHONG__MaKH__1DE57479">
@@ -140,7 +142,7 @@
   </Association>
   <Association Name="FK__TRANGTHAI__MaPho__1A14E395">
     <End Role="PHONG" Type="Self.PHONG" Multiplicity="1" />
-    <End Role="TRANGTHAIPHONG" Type="Self.TRANGTHAIPHONG" Multiplicity="0..1" />
+    <End Role="TRANGTHAIPHONG" Type="Self.TRANGTHAIPHONG" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="PHONG">
         <PropertyRef Name="MaPhong" />
@@ -152,6 +154,13 @@
   </Association>
   <Function Name="DanhSachPhong" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="maLoaiPhong" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SeachReceipt_MaKH" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="maKH" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SeachReceipt_MaKH_Date" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="maKH" Type="int" Mode="In" />
+    <Parameter Name="date" Type="date" Mode="In" />
   </Function>
   <Function Name="ThemKhachHang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="hoTen" Type="nvarchar" Mode="In" />
@@ -172,6 +181,10 @@
     <Parameter Name="thanhPho" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="TrangThaiPhongDaDatTheoNgay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="maLoaiPhong" Type="int" Mode="In" />
+    <Parameter Name="date" Type="date" Mode="In" />
+  </Function>
+  <Function Name="TrangThaiPhongTheoNgay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="maLoaiPhong" Type="int" Mode="In" />
     <Parameter Name="date" Type="date" Mode="In" />
   </Function>

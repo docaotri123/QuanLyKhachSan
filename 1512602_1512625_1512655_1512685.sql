@@ -58,9 +58,10 @@ create index ID_LoaiPhong ON PHONG(LoaiPhong);
 
 create table TRANGTHAIPHONG
 (
-	MaPhong INT IDENTITY PRIMARY KEY,
-	Ngay date,
+	MaPhong INT,
+	Ngay date,	
 	TinhTrang NVARCHAR(20),
+	PRIMARY KEY(MaPhong,Ngay),
 	FOREIGN KEY (MaPhong) REFERENCES PHONG(MaPhong)
 )
 

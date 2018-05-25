@@ -29,6 +29,7 @@ namespace QuanLyKhachSan.Models
         public string SoDienThoai { get; set; }
         public string MoTa { get; set; }
         public string Email { get; set; }
+        public Nullable<int> Style { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DATPHONG> DATPHONGs { get; set; }

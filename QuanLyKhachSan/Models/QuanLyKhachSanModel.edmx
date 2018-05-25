@@ -41,6 +41,7 @@
           <Property Name="SoDienThoai" Type="varchar" MaxLength="20" />
           <Property Name="MoTa" Type="nvarchar" MaxLength="200" />
           <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Style" Type="int" />
         </EntityType>
         <EntityType Name="KHACHSAN">
           <Key>
@@ -78,9 +79,10 @@
         <EntityType Name="TRANGTHAIPHONG">
           <Key>
             <PropertyRef Name="MaPhong" />
+            <PropertyRef Name="Ngay" />
           </Key>
-          <Property Name="MaPhong" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Ngay" Type="date" />
+          <Property Name="MaPhong" Type="int" Nullable="false" />
+          <Property Name="Ngay" Type="date" Nullable="false" />
           <Property Name="TinhTrang" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <Association Name="FK__DATPHONG__MaKH__1DE57479">
@@ -145,7 +147,7 @@
         </Association>
         <Association Name="FK__TRANGTHAI__MaPho__1A14E395">
           <End Role="PHONG" Type="Self.PHONG" Multiplicity="1" />
-          <End Role="TRANGTHAIPHONG" Type="Self.TRANGTHAIPHONG" Multiplicity="0..1" />
+          <End Role="TRANGTHAIPHONG" Type="Self.TRANGTHAIPHONG" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PHONG">
               <PropertyRef Name="MaPhong" />
@@ -157,6 +159,13 @@
         </Association>
         <Function Name="DanhSachPhong" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="maLoaiPhong" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SeachReceipt_MaKH" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="maKH" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SeachReceipt_MaKH_Date" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="maKH" Type="int" Mode="In" />
+          <Parameter Name="date" Type="date" Mode="In" />
         </Function>
         <Function Name="ThemKhachHang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="hoTen" Type="nvarchar" Mode="In" />
@@ -177,6 +186,10 @@
           <Parameter Name="thanhPho" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="TrangThaiPhongDaDatTheoNgay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="maLoaiPhong" Type="int" Mode="In" />
+          <Parameter Name="date" Type="date" Mode="In" />
+        </Function>
+        <Function Name="TrangThaiPhongTheoNgay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="maLoaiPhong" Type="int" Mode="In" />
           <Parameter Name="date" Type="date" Mode="In" />
         </Function>
@@ -258,6 +271,7 @@
           <Property Name="MoTa" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="DATPHONGs" Relationship="Self.FK__DATPHONG__MaKH__1DE57479" FromRole="KHACHHANG" ToRole="DATPHONG" />
+          <Property Name="Style" Type="Int32" />
         </EntityType>
         <EntityType Name="KHACHSAN">
           <Key>
@@ -296,14 +310,15 @@
           <Property Name="SoPhong" Type="Int32" />
           <NavigationProperty Name="DATPHONGs" Relationship="Self.FK__DATPHONG__MaPhon__1CF15040" FromRole="PHONG" ToRole="DATPHONG" />
           <NavigationProperty Name="LOAIPHONG1" Relationship="Self.FK__PHONG__LoaiPhong__173876EA" FromRole="PHONG" ToRole="LOAIPHONG" />
-          <NavigationProperty Name="TRANGTHAIPHONG" Relationship="Self.FK__TRANGTHAI__MaPho__1A14E395" FromRole="PHONG" ToRole="TRANGTHAIPHONG" />
+          <NavigationProperty Name="TRANGTHAIPHONGs" Relationship="Self.FK__TRANGTHAI__MaPho__1A14E395" FromRole="PHONG" ToRole="TRANGTHAIPHONG" />
         </EntityType>
         <EntityType Name="TRANGTHAIPHONG">
           <Key>
             <PropertyRef Name="MaPhong" />
+            <PropertyRef Name="Ngay" />
           </Key>
-          <Property Name="MaPhong" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Ngay" Type="DateTime" Precision="0" />
+          <Property Name="MaPhong" Type="Int32" Nullable="false" />
+          <Property Name="Ngay" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="TinhTrang" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="PHONG" Relationship="Self.FK__TRANGTHAI__MaPho__1A14E395" FromRole="TRANGTHAIPHONG" ToRole="PHONG" />
         </EntityType>
@@ -369,7 +384,7 @@
         </Association>
         <Association Name="FK__TRANGTHAI__MaPho__1A14E395">
           <End Role="PHONG" Type="Self.PHONG" Multiplicity="1" />
-          <End Role="TRANGTHAIPHONG" Type="Self.TRANGTHAIPHONG" Multiplicity="0..1" />
+          <End Role="TRANGTHAIPHONG" Type="Self.TRANGTHAIPHONG" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PHONG">
               <PropertyRef Name="MaPhong" />
@@ -440,6 +455,13 @@
             <Parameter Name="maLoaiPhong" Mode="In" Type="Int32" />
             <Parameter Name="date" Mode="In" Type="DateTime" />
           </FunctionImport>
+          <FunctionImport Name="SeachReceipt_MaKH" ReturnType="Collection(QuanLyKhachSanModel.SeachReceipt_MaKH_Result)">
+          <Parameter Name="maKH" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SeachReceipt_MaKH_Date" ReturnType="Collection(QuanLyKhachSanModel.SeachReceipt_MaKH_Date_Result)">
+            <Parameter Name="maKH" Mode="In" Type="Int32" />
+            <Parameter Name="date" Mode="In" Type="DateTime" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="DanhSachPhong_Result">
           <Property Type="Int32" Name="MaPhong" Nullable="false" />
@@ -470,6 +492,18 @@
         <ComplexType Name="TrangThaiPhongTheoNgay_Result">
           <Property Type="Int32" Name="SoPhong" Nullable="true" />
           <Property Type="String" Name="TinhTrang" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="SeachReceipt_MaKH_Result">
+          <Property Type="Int32" Name="MaKH" Nullable="true" />
+          <Property Type="DateTime" Name="NgayThanhToan" Nullable="true" />
+          <Property Type="Decimal" Name="TongTien" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="MaDP" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SeachReceipt_MaKH_Date_Result">
+          <Property Type="Int32" Name="MaKH" Nullable="true" />
+          <Property Type="DateTime" Name="NgayThanhToan" Nullable="true" />
+          <Property Type="Decimal" Name="TongTien" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="MaDP" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -505,6 +539,7 @@
           <EntitySetMapping Name="KHACHHANGs">
             <EntityTypeMapping TypeName="QuanLyKhachSanModel.KHACHHANG">
               <MappingFragment StoreEntitySet="KHACHHANG">
+                <ScalarProperty Name="Style" ColumnName="Style" />
                 <ScalarProperty Name="MaKH" ColumnName="MaKH" />
                 <ScalarProperty Name="HoTen" ColumnName="HoTen" />
                 <ScalarProperty Name="TenDangNhap" ColumnName="TenDangNhap" />
@@ -601,7 +636,35 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="TrangThaiPhongTheoNgay" FunctionName="QuanLyKhachSanModel.Store.TrangThaiPhongTheoNgay">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QuanLyKhachSanModel.TrangThaiPhongTheoNgay_Result">
+                <ScalarProperty Name="SoPhong" ColumnName="SoPhong" />
+                <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="TrangThaiPhongDaDatTheoNgay" FunctionName="QuanLyKhachSanModel.Store.TrangThaiPhongDaDatTheoNgay" />
+          <FunctionImportMapping FunctionImportName="SeachReceipt_MaKH" FunctionName="QuanLyKhachSanModel.Store.SeachReceipt_MaKH">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QuanLyKhachSanModel.SeachReceipt_MaKH_Result">
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="NgayThanhToan" ColumnName="NgayThanhToan" />
+                <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+                <ScalarProperty Name="MaDP" ColumnName="MaDP" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SeachReceipt_MaKH_Date" FunctionName="QuanLyKhachSanModel.Store.SeachReceipt_MaKH_Date">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QuanLyKhachSanModel.SeachReceipt_MaKH_Date_Result">
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="NgayThanhToan" ColumnName="NgayThanhToan" />
+                <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+                <ScalarProperty Name="MaDP" ColumnName="MaDP" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

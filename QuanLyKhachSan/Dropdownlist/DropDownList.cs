@@ -87,7 +87,7 @@ namespace QuanLyKhachSan.Dropdownlist
                     {
                         Text = item.MaLoaiPhong.ToString(),
                         Value = item.MaLoaiPhong.ToString(),
-                        Selected = !string.IsNullOrEmpty(selectedValue) ? selectedValue.Equals(item.MaLoaiPhong) : false
+                        Selected = !string.IsNullOrEmpty(selectedValue) ? selectedValue.Equals(item.MaLoaiPhong.ToString()) : false
                     };
 
                     rooms.Add(x);

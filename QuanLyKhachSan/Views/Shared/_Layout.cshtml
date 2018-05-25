@@ -1,4 +1,7 @@
 ﻿<!DOCTYPE html>
+@{ 
+    var u = Session["loginSuccess"] as QuanLyKhachSan.ViewModels.UserName;
+}
 <html>
 <head>
     <meta charset="utf-8" />
@@ -27,13 +30,26 @@
                                 <li><a href="/TimKiemKS/HangSaoVaThanhPho">Hạng sao và Thành phố</a></li>
                             </ul>
                         </li>
-                        <li><a href="#">Page 2</a></li>
+                        @if (Session["loginSuccess"] != null && u.style == 1)
+                        {
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fas fa-search"></i> Chức Năng Nhân Viên<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/Employee/ScanfIDBookRoom">Lập hóa đơn</a></li>
+                                    <li><a href="/Employee/SearchReceipt">Tìm hóa đơn</a></li>
+                                    <li><a href="#">Thống kê theo tháng</a></li>
+                                    <li><a href="#">Thống kê theo năm</a></li>
+                                </ul>
+                            </li>
+                        }
+
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         @if (Session["loginSuccess"] != null)
                         {
-                            var u = Session["loginSuccess"] as QuanLyKhachSan.ViewModels.UserName;
-                            <li><a href="/User/Detail"><span class="glyphicon glyphicon-user"></span>@u.userName</a></li>
+                            var user = Session["loginSuccess"] as QuanLyKhachSan.ViewModels.UserName;
+                            <li><a href="/User/DetailCart"><i class="fas fa-cart-plus"></i> Cart</a></li>
+                            <li><a href="/User/Detail"><span class="glyphicon glyphicon-user"></span> @user.userName</a></li>
                             <li><a href="/Signin/Logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
                         }
                         else
@@ -47,6 +63,9 @@
         </div>
         @RenderBody()
     </div>
+
+
+
 </body>
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/jqueryval")

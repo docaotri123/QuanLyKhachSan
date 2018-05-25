@@ -10,14 +10,12 @@
 namespace QuanLyKhachSan.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class TRANGTHAIPHONG
+    public partial class SeachReceipt_MaKH_Date_Result
     {
-        public int MaPhong { get; set; }
-        public System.DateTime Ngay { get; set; }
-        public string TinhTrang { get; set; }
-    
-        public virtual PHONG PHONG { get; set; }
+        public Nullable<int> MaKH { get; set; }
+        public Nullable<System.DateTime> NgayThanhToan { get; set; }
+        public Nullable<decimal> TongTien { get; set; }
+        public Nullable<int> MaDP { get; set; }
     }
 }

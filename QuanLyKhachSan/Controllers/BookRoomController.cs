@@ -10,8 +10,17 @@ namespace QuanLyKhachSan.Controllers
 {
     public class BookRoomController : Controller
     {
-        private readonly QuanLyKhachSanEntities db = new QuanLyKhachSanEntities();
+        private QuanLyKhachSanEntities db = new QuanLyKhachSanEntities();
 
+        private bool TrangThaiPhongTheoNgay(int? maPhong, DateTime date)
+        {
+            var kq = db.TRANGTHAIPHONGs.Where(m => m.MaPhong == maPhong && m.Ngay.Equals(date));
+            if (kq != null)
+            {
+                return true;
+            }
+            return false;
+        }
 
         // GET: BookRoom
         [HttpGet]
@@ -19,7 +28,7 @@ namespace QuanLyKhachSan.Controllers
         {
             //Check Login
             var user = Session["loginSuccess"] as UserName;
-            ViewBag.User = "";
+            ViewBag.User = null;
             if(user!=null)
                 ViewBag.User = user.maKH;
             //Tìm Hotel 
@@ -30,7 +39,8 @@ namespace QuanLyKhachSan.Controllers
             Hotel hotel = new Hotel(dbhotel.MaKS, dbhotel.TenKS, dbhotel.SoSao, dbhotel.SoNha, dbhotel.Quan, dbhotel.ThanhPho, dbhotel.GiaTB, dbhotel.MoTa);
 
             ViewBag.Hotel = hotel;
-            ViewBag.maLoaiPhong = maLoaiPhong;
+            ViewBag.maLoaiPhong = maLoaiPhong.ToString();
+        
 
             List<LoaiPhong> listLoaiPhong = new List<LoaiPhong>();
 
@@ -45,7 +55,7 @@ namespace QuanLyKhachSan.Controllers
             DateTime thisDay = DateTime.Today;
             DateTime ngayDat = DateTime.Today;
 
-            if (ngayBatDau != null)
+            if (ngayBatDau != null&&ngayBatDau!="")
             {
                 String[] sub = ngayBatDau.Split('-');
                 ngayDat = new DateTime(int.Parse(sub[0]), int.Parse(sub[1]), int.Parse(sub[2]));
@@ -80,7 +90,7 @@ namespace QuanLyKhachSan.Controllers
                     i++;
                 }
                 i = 0;
-                int ck;
+                int ck = 0;
                 //Ghi lại trạng thái phong dã đặt
                 for (; i < maPhong.Count(); i++)
                 {
@@ -90,10 +100,11 @@ namespace QuanLyKhachSan.Controllers
                         if (maPhong[i] == trangThaiPhong[j])
                         {
                             a[i] = 1;
+                            ck = j;
                             break;
                         }
                     }
-                    j = 0;
+                    j = ck;
                 }
 
 
@@ -106,7 +117,7 @@ namespace QuanLyKhachSan.Controllers
                     x.soPhong = item.SoPhong;
                     if (a[i] == 1)
                     {
-                        x.stage = "đang sử dụng";
+                        x.stage = "hết phòng";
                     }
                     else
                     {
@@ -119,7 +130,7 @@ namespace QuanLyKhachSan.Controllers
                 ViewBag.listPhong = listPhong;
                 //Book Room
 
-
+                ViewBag.ThongBao = "";
 
                 if (dp.maPhong != null)
                 {
@@ -130,18 +141,54 @@ namespace QuanLyKhachSan.Controllers
                         int numDaysDiff = Math.Abs(dp.ngayBatDau.Subtract(dp.ngayTraPhong).Days) + 1;
                         dp.donGia = numDaysDiff * dp.donGia;
                         dp.tinhTrang = "chưa xác nhận";
+                        var test = false;
+                        DateTime start = dp.ngayBatDau;
+                        for (i = 0; i < numDaysDiff; i++)
+                        {
+                            test = TrangThaiPhongTheoNgay(dp.maPhong, start.AddDays(i));
+                            if (test == false)
+                            {
+                                ViewBag.ThongBao = "Dat Phong That Bai";
+                                break;
+                            }
+                        }
+                        if (test==true)
+                        {
+                            ViewBag.ThongBao = "Dat Phong Thanh Cong";
+                            DATPHONG datphong = new DATPHONG();
+                            datphong.MaPhong = dp.maPhong;
+                            datphong.MaKH = dp.maKH;
+                            datphong.NgayBatDau = dp.ngayBatDau;        
+                            datphong.NgayTraPhong = dp.ngayTraPhong;
+                            datphong.NgayDat = thisDay;
+                            datphong.DonGia = dp.donGia;
+                            datphong.MoTa = "ABC";
+                            datphong.TinhTrang = "chưa xác nhận";
+                            //Cap nhat bang dat Phong
+                            db.DATPHONGs.Add(datphong);
+                            //Cap nhat bang Trang Thai Phong
+                            TRANGTHAIPHONG ttp1 = null;
+                            for (i = 0; i < numDaysDiff; i++)
+                            {
+                                //TrangThaiPhongTheoNgay(dp.maPhong, dp.ngayBatDau.AddDays(i)); 
+                                ttp1 = new TRANGTHAIPHONG();
+                                ttp1.MaPhong =(int) dp.maPhong;
+                                ttp1.Ngay = dp.ngayBatDau.AddDays(i);
+                                ttp1.TinhTrang = "đang sử dụng";
+                                db.TRANGTHAIPHONGs.Add(ttp1);
+                            }
+                            db.SaveChanges();
+                        }
                     }
-                        
-
-
-
-
+ 
                 }
                                             
             }
 
             return View();
         }
+
+     
 
         [HttpPost]
         public ActionResult DetailRoom()

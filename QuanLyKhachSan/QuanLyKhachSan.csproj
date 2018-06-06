@@ -285,6 +285,8 @@
     <Content Include="Views\User\DetailCart.cshtml" />
     <Content Include="Views\Employee\ScanfIDBookRoom.cshtml" />
     <Content Include="Views\Employee\SearchReceipt.cshtml" />
+    <Content Include="Views\Employee\DoanhThuTheoThang.cshtml" />
+    <Content Include="Views\Employee\DoanhThuTheoNam.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

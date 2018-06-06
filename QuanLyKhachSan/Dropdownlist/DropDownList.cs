@@ -96,5 +96,43 @@ namespace QuanLyKhachSan.Dropdownlist
                 return rooms;
             }
         }
+
+
+        public static IEnumerable<SelectListItem> GetMonths(string selectedValue = "1")
+        {
+            var result1 = new List<SelectListItem>();
+
+            for(var i = 1; i <= 12; i++)
+            {
+                var month = new SelectListItem()
+                {
+                    Text = i.ToString(),
+                    Value = i.ToString(),
+                    Selected = !string.IsNullOrEmpty(selectedValue) ? selectedValue.Equals(i.ToString()) : false
+                };
+                result1.Add(month);
+            }
+
+            return result1;
+        }
+
+        public static IEnumerable<SelectListItem> GetYears(string selectedValue = "1")
+        {
+            var result1 = new List<SelectListItem>();
+            DateTime now = DateTime.Today;
+            int yearNow = now.Year;
+            for (var i = 2010; i <= yearNow; i++)
+            {
+                var year = new SelectListItem()
+                {
+                    Text = i.ToString(),
+                    Value = i.ToString(),
+                    Selected = !string.IsNullOrEmpty(selectedValue) ? selectedValue.Equals(i.ToString()) : false
+                };
+                result1.Add(year);
+            }
+
+            return result1;
+        }
     }
 }

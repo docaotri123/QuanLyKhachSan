@@ -1,0 +1,41 @@
+﻿@using QuanLyKhachSan.Models;
+@using QuanLyKhachSan.Dropdownlist;
+
+@{
+    ViewBag.Title = "Doanh Thu Năm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string selectedYear = ViewBag.year;
+}
+
+<div class="row">
+    @using (Html.BeginForm("DoanhThuTheoNam", "Employee", FormMethod.Get))
+    {
+
+        <table>
+            <tbody>
+                <tr>
+                    <th style="width:150px;text-align:right;text-align:center">Năm</th>
+                    <th style="width:150px">
+
+                        @Html.DropDownList("myYear", DropDownList.GetYears(selectedYear), new { @class = "form-control" })
+
+                    </th>
+
+                    <th style="width:200px; padding-left: 15px"><button type="submit" class="btn btn-success" onclick="myFunction()"><i class="fas fa-search-plus"></i> Tìm kiếm</button></th>
+                </tr>
+            </tbody>
+        </table>
+        <input hidden id="month" type="text" name="month">
+        <input hidden id="year" type="text" name="year">
+    }
+    <h3> Doanh Thu:@ViewBag.Total </h3>
+</div>
+
+<script>
+    function myFunction() {
+        var year = document.getElementById("myYear").value;
+
+        document.getElementById("year").value = year;
+
+    }
+</script>

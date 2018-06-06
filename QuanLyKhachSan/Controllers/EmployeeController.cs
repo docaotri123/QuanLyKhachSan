@@ -85,6 +85,35 @@ namespace QuanLyKhachSan.Controllers
             }
             return View();
         }
-   
+
+        public ActionResult DoanhThuTheoThang(string month,string year)
+        {
+            ViewBag.month = month;
+            ViewBag.year = year;
+            if(month!=null && year!=null)
+            {
+                int? y = int.Parse(year);
+                int? m1 = int.Parse(month);
+                var total = db.HOADONs.Where(m => m.NgayThanhToan.Value.Year == y
+                && m.NgayThanhToan.Value.Month == m1).Sum(x => x.TongTien);
+                ViewBag.Total = total;
+            }
+          
+            return View();
+        }
+
+        public ActionResult DoanhThuTheoNam(string year)
+        {
+            ViewBag.year = year;
+            if (year != null)
+            {
+                int? y = int.Parse(year);
+                var total = db.HOADONs.Where(m => m.NgayThanhToan.Value.Year == y).Sum(x => x.TongTien);
+                ViewBag.Total = total;
+            }
+
+            return View();
+        }
+
     }
 }

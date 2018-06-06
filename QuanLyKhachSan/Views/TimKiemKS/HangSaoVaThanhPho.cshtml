@@ -15,13 +15,7 @@
                 <tr>
                     <th style="width:100px">Giá cần tìm</th>
                     <th style="width:150px">
-                        @*<select id="mysao" class="form-control">
-                            <option value="5" selected>5 Sao</option>
-                            <option value="4">4 Sao</option>
-                            <option value="3">3 Sao</option>
-                            <option value="2">2 Sao</option>
-                            <option value="1">1 Sao</option>
-                        </select>*@
+                    
                          @Html.DropDownList("mysao", DropDownList.GetStars(selectedStar), new { @class= "form-control" })
                     </th>
                     <th style="width:150px;text-align:right;text-align:center">Tên thành phố</th>

@@ -35,6 +35,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -196,10 +197,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>QuanLyKhachSanModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\SeachReceipt_MaKH_Date_Result.cs">
-      <DependentUpon>QuanLyKhachSanModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SeachReceipt_MaKH_Result.cs">
+    <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>QuanLyKhachSanModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TimKiemGiaVaThanhPho_Result.cs">

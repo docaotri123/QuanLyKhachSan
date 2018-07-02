@@ -73,14 +73,16 @@ namespace QuanLyKhachSan.Controllers
             ViewBag.date = thisDay.ToString("yyyy-MM-dd");
             if (maKH!=null)
             {
-                ViewBag.list = db.SeachReceipt_MaKH(maKH).ToList();
+                // ViewBag.list = db.SeachReceipt_MaKH(maKH).ToList();
+                ViewBag.list = null;
 
             }
             else if(maKH!=null && date!=null)
             {
                 String[] subs = date.Split('-');
                 DateTime date1 = new DateTime(int.Parse(subs[0]), int.Parse(subs[1]), int.Parse(subs[2]));
-                ViewBag.list = db.SeachReceipt_MaKH_Date(maKH, thisDay).ToList();
+                //ViewBag.list = db.SeachReceipt_MaKH_Date(maKH, thisDay).ToList();
+                ViewBag.list = null;
                 ViewBag.date = date1.ToString("yyyy-MM-dd");
             }
             return View();

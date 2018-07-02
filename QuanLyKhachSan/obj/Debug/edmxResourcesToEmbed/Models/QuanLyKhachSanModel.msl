@@ -29,7 +29,6 @@
     <EntitySetMapping Name="KHACHHANGs">
       <EntityTypeMapping TypeName="QuanLyKhachSanModel.KHACHHANG">
         <MappingFragment StoreEntitySet="KHACHHANG">
-          <ScalarProperty Name="Style" ColumnName="Style" />
           <ScalarProperty Name="MaKH" ColumnName="MaKH" />
           <ScalarProperty Name="HoTen" ColumnName="HoTen" />
           <ScalarProperty Name="TenDangNhap" ColumnName="TenDangNhap" />
@@ -39,6 +38,7 @@
           <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
           <ScalarProperty Name="MoTa" ColumnName="MoTa" />
           <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Style" ColumnName="Style" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -75,6 +75,17 @@
           <ScalarProperty Name="MaPhong" ColumnName="MaPhong" />
           <ScalarProperty Name="LoaiPhong" ColumnName="LoaiPhong" />
           <ScalarProperty Name="SoPhong" ColumnName="SoPhong" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="QuanLyKhachSanModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -135,25 +146,5 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="TrangThaiPhongDaDatTheoNgay" FunctionName="QuanLyKhachSanModel.Store.TrangThaiPhongDaDatTheoNgay" />
-    <FunctionImportMapping FunctionImportName="SeachReceipt_MaKH" FunctionName="QuanLyKhachSanModel.Store.SeachReceipt_MaKH">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="QuanLyKhachSanModel.SeachReceipt_MaKH_Result">
-          <ScalarProperty Name="MaKH" ColumnName="MaKH" />
-          <ScalarProperty Name="NgayThanhToan" ColumnName="NgayThanhToan" />
-          <ScalarProperty Name="TongTien" ColumnName="TongTien" />
-          <ScalarProperty Name="MaDP" ColumnName="MaDP" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="SeachReceipt_MaKH_Date" FunctionName="QuanLyKhachSanModel.Store.SeachReceipt_MaKH_Date">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="QuanLyKhachSanModel.SeachReceipt_MaKH_Date_Result">
-          <ScalarProperty Name="MaKH" ColumnName="MaKH" />
-          <ScalarProperty Name="NgayThanhToan" ColumnName="NgayThanhToan" />
-          <ScalarProperty Name="TongTien" ColumnName="TongTien" />
-          <ScalarProperty Name="MaDP" ColumnName="MaDP" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

@@ -10,12 +10,14 @@
 namespace QuanLyKhachSan.Models
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class SeachReceipt_MaKH_Date_Result
+    public partial class sysdiagram
     {
-        public Nullable<int> MaKH { get; set; }
-        public Nullable<System.DateTime> NgayThanhToan { get; set; }
-        public Nullable<decimal> TongTien { get; set; }
-        public Nullable<int> MaDP { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

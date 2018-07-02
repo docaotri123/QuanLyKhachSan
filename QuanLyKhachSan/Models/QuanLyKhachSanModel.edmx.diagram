@@ -4,14 +4,15 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="42ab8c7fdd5440e0a95133df4acee9c3" Name="Diagram1">
-        <EntityTypeShape EntityType="QuanLyKhachSanModel.DATPHONG" Width="1.5" PointX="7.5" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyKhachSanModel.HOADON" Width="1.5" PointX="9.75" PointY="5.25" IsExpanded="true" />
+      <Diagram DiagramId="416b03c71695480792cc23bdaea636b7" Name="Diagram1">
+        <EntityTypeShape EntityType="QuanLyKhachSanModel.DATPHONG" Width="1.5" PointX="7.5" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyKhachSanModel.HOADON" Width="1.5" PointX="9.75" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="QuanLyKhachSanModel.KHACHHANG" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyKhachSanModel.KHACHSAN" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyKhachSanModel.KHACHSAN" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
         <EntityTypeShape EntityType="QuanLyKhachSanModel.LOAIPHONG" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyKhachSanModel.PHONG" Width="1.5" PointX="5.25" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyKhachSanModel.TRANGTHAIPHONG" Width="1.5" PointX="7.5" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyKhachSanModel.PHONG" Width="1.5" PointX="5.25" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyKhachSanModel.sysdiagram" Width="1.5" PointX="0.75" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyKhachSanModel.TRANGTHAIPHONG" Width="1.5" PointX="7.5" PointY="9.5" IsExpanded="true" />
         <AssociationConnector Association="QuanLyKhachSanModel.FK__DATPHONG__MaKH__1DE57479" ManuallyRouted="false" />
         <AssociationConnector Association="QuanLyKhachSanModel.FK__DATPHONG__MaPhon__1CF15040" ManuallyRouted="false" />
         <AssociationConnector Association="QuanLyKhachSanModel.FK__HOADON__MaDP__20C1E124" ManuallyRouted="false" />

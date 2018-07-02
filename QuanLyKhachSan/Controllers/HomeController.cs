@@ -27,20 +27,20 @@ namespace QuanLyKhachSan.Controllers
 
             return View();
         }
-        private static Random random = new Random();
-        private static int RandomLength()
-        {
-            Random rnd = new Random();
-            int len = rnd.Next(4, 11);
-            return len;
-        }
-        private static string RandomString()
-        {
-            int len = RandomLength();
-            const string chars = "abcdefghijklmopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            return new string(Enumerable.Repeat(chars, len)
-              .Select(s => s[random.Next(s.Length)]).ToArray());
-        }
+        //private static Random random = new Random();
+        //private static int RandomLength()
+        //{
+        //    Random rnd = new Random();
+        //    int len = rnd.Next(4, 11);
+        //    return len;
+        //}
+        //private static string RandomString()
+        //{
+        //    int len = RandomLength();
+        //    const string chars = "abcdefghijklmopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        //    return new string(Enumerable.Repeat(chars, len)
+        //      .Select(s => s[random.Next(s.Length)]).ToArray());
+        //}
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -49,7 +49,7 @@ namespace QuanLyKhachSan.Controllers
             if (ModelState.IsValid)
             {
                 var ck = 0;
-                var maKH = RandomString();
+     
                 ck = db.ThemKhachHang(kh.HoTen, kh.TenDangNhap, kh.MatKhau, kh.SoCMND, kh.DiaChi, kh.SoDienThoai, kh.MoTa, kh.Email);
                 if (ck == -1)
                 {

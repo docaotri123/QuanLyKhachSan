@@ -71,6 +71,16 @@
     <Property Name="LoaiPhong" Type="int" />
     <Property Name="SoPhong" Type="int" />
   </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
   <EntityType Name="TRANGTHAIPHONG">
     <Key>
       <PropertyRef Name="MaPhong" />
@@ -155,13 +165,6 @@
   <Function Name="DanhSachPhong" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="maLoaiPhong" Type="int" Mode="In" />
   </Function>
-  <Function Name="SeachReceipt_MaKH" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="maKH" Type="int" Mode="In" />
-  </Function>
-  <Function Name="SeachReceipt_MaKH_Date" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="maKH" Type="int" Mode="In" />
-    <Parameter Name="date" Type="date" Mode="In" />
-  </Function>
   <Function Name="ThemKhachHang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="hoTen" Type="nvarchar" Mode="In" />
     <Parameter Name="tenDangNhap" Type="varchar" Mode="In" />
@@ -195,6 +198,7 @@
     <EntitySet Name="KHACHSAN" EntityType="Self.KHACHSAN" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LOAIPHONG" EntityType="Self.LOAIPHONG" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PHONG" EntityType="Self.PHONG" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TRANGTHAIPHONG" EntityType="Self.TRANGTHAIPHONG" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__DATPHONG__MaKH__1DE57479" Association="Self.FK__DATPHONG__MaKH__1DE57479">
       <End Role="KHACHHANG" EntitySet="KHACHHANG" />
